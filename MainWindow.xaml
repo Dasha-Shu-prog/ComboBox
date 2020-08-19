@@ -1,0 +1,54 @@
+﻿<Window x:Class="Table1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Table1"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    
+    <Window.Resources>
+        <Style TargetType ="ComboBox">
+            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="0,-3,0,1"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid HorizontalAlignment="Center" 
+          VerticalAlignment="Center"
+          Height="420" Width="790">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <ComboBox x:Name ="color" Grid.Column="0" VerticalAlignment="Center">
+            <ComboBoxItem IsSelected ="True">
+                <TextBlock Text ="Красный" Foreground="Firebrick"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Синий" Foreground="DarkBlue"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Зелёный" Foreground="DarkGreen"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Оранжевый" Foreground="DarkOrange"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Фиолетовый" Foreground="DarkMagenta"/>
+            </ComboBoxItem>
+            <!--ComboBoxItem>
+                <TextBlock Text ="Другой цвет" Foreground="#FF34345F"/>
+            </ComboBoxItem>-->
+            </ComboBox>
+    </Grid>
+</Window>
