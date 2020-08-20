@@ -78,7 +78,7 @@ namespace Table1
             if (value < MIN_TIME)
                 value = MIN_TIME;
             //if (t_start > t_stop)
-               // MessageBox.Show("Время начала должно быть меньше!");
+               // MessageBox.Show("Время начала должно быть меньше времени конца!");
         }   
         private void ValidateDataAmpl(ref int value)
         {
