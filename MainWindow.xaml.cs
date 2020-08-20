@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -21,8 +22,8 @@ namespace Table1
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-        public partial class MainWindow : Window
-        {
+     public partial class MainWindow : Window
+     {
             private int t_start = 0;
             private int t_stop = 0;
             private int val_ampl = 0;
@@ -31,50 +32,54 @@ namespace Table1
             const int MIN_AMPL = -50;
             const int MAX_AMPL = 50;
         public MainWindow()
+        {
+            InitializeComponent();
+            ArrayList listStrobe = new ArrayList();
+            listStrobe.Add(table);
+        }
+        private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Int32.TryParse(time_start.Text, out int result_t_start))
             {
-                InitializeComponent();
+                ValidateData(ref result_t_start);
+                t_start = result_t_start;
             }
-            private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
+             time_start.Text = t_start.ToString();
+        }
+        private void Time_stop_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Int32.TryParse(time_stop.Text, out int result_t_stop))
             {
-                if (Int32.TryParse(time_start.Text, out int result_t_start))
-                {
-                    ValidateData(ref result_t_start);
-                    t_start = result_t_start;
-                }
-                time_start.Text = t_start.ToString();
+                ValidateData(ref result_t_stop);
+                t_stop = result_t_stop;
             }
-            private void Time_stop_TextChanged(object sender, TextChangedEventArgs e)
+             time_stop.Text = t_stop.ToString();
+        }
+        private void Ampl_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Int32.TryParse(ampl.Text, out int result_ampl))
             {
-                if (Int32.TryParse(time_stop.Text, out int result_t_stop))
-                {
-                    ValidateData(ref result_t_stop);
-                    t_stop = result_t_stop;
-                }
-                time_stop.Text = t_stop.ToString();
+                ValidateDataAmpl(ref result_ampl);
+                val_ampl = result_ampl;
             }
-            private void Ampl_TextChanged(object sender, TextChangedEventArgs e)
-            {
-                if (Int32.TryParse(ampl.Text, out int result_ampl))
-                {
-                    ValidateDataAmpl(ref result_ampl);
-                    val_ampl = result_ampl;
-                }
-                ampl.Text = val_ampl.ToString();
-            }
-            private void ValidateData(ref int value)
-            {
-                if (value > MAX_TIME)
-                    value = MAX_TIME;
-                if (value < MIN_TIME)
-                    value = MIN_TIME;
-            }
-            private void ValidateDataAmpl(ref int value)
-            {
-                if (value > MAX_AMPL)
-                    value = MAX_AMPL;
-                if (value < MIN_AMPL)
-                    value = MIN_AMPL;
-            }
+              ampl.Text = val_ampl.ToString();
+        }
+        private void ValidateData(ref int value)
+        {
+            if (value > MAX_TIME)
+                value = MAX_TIME;
+            if (value < MIN_TIME)
+                value = MIN_TIME;
+            //if (t_start > t_stop)
+               // MessageBox.Show("Время начала должно быть меньше!");
+        }   
+        private void ValidateDataAmpl(ref int value)
+        {
+            if (value > MAX_AMPL)
+                value = MAX_AMPL;
+            if (value < MIN_AMPL)
+                value = MIN_AMPL;
+        }
         private void table_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
@@ -90,10 +95,10 @@ namespace Table1
             };
             table.Items.Add(strobe1);
         }
-            private void Minus_Click(object sender, RoutedEventArgs e)
-            {
-                table.Items.Remove(table.SelectedItem);
-                table.Items.Refresh();
-            }
+        private void Minus_Click(object sender, RoutedEventArgs e)
+        {
+            table.Items.Remove(table.SelectedItem);
+            table.Items.Refresh();
+        }        
     }    
 }
