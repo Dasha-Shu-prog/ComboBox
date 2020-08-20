@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,13 @@ namespace Table1
         {
             InitializeComponent();
             ArrayList listStrobe = new ArrayList();
-            listStrobe.Add(table);
+            listStrobe.Add(t_start);
+            listStrobe.Add(t_stop);
+            listStrobe.Add(val_ampl);
+            //foreach (object data in listStrobe)
+            //{
+            //    Console.WriteLine(listStrobe);
+            //}
         }
         private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
         {
