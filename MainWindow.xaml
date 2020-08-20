@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Table1"
+        xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="980">
     <Window.Resources>
         <Style TargetType ="ComboBox">
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
@@ -35,12 +36,11 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
-        <!--" local:RowNumber x:Name="RowNumber"/-->
     </Window.Resources>
 
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center"
-          Height="420" Width="790">
+          Height="520" Width="970">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -51,6 +51,7 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
@@ -92,11 +93,13 @@
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="table_LoadingRow" 
                   Grid.Column="1" Height="420" Grid.RowSpan="5" IsReadOnly="True">
             <DataGrid.Columns>
+                
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
                 <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}" />
                 <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}" />
                 <DataGridTextColumn x:Name="color" Header="Цвет" Binding="{Binding Path=Color}"/>
             </DataGrid.Columns>
         </DataGrid>
+        
     </Grid>
 </Window>

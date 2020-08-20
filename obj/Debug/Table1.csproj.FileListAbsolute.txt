@@ -28,3 +28,10 @@ C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csproj.Core
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.exe
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.pdb
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csprojAssemblyReference.cache
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\InteractiveDataDisplay.WPF.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\InteractiveDataDisplay.WPF.pdb
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csproj.CopyComplete

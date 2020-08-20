@@ -32,17 +32,10 @@ namespace Table1
             const int MAX_TIME = 180;
             const int MIN_AMPL = -50;
             const int MAX_AMPL = 50;
+            ArrayList listStrobe = new ArrayList();
         public MainWindow()
         {
             InitializeComponent();
-            ArrayList listStrobe = new ArrayList();
-            listStrobe.Add(t_start);
-            listStrobe.Add(t_stop);
-            listStrobe.Add(val_ampl);
-            //foreach (object data in listStrobe)
-            //{
-            //    Console.WriteLine(listStrobe);
-            //}
         }
         private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -101,11 +94,14 @@ namespace Table1
                 Color = color_box.Text
             };
             table.Items.Add(strobe1);
+            listStrobe.Add(strobe1);
         }
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
             table.Items.Remove(table.SelectedItem);
             table.Items.Refresh();
-        }        
+            listStrobe.Remove(table.SelectedItems);
+        }
+        //linegraph.Plot(x, y);
     }    
 }
