@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Table1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
     <Window.Resources>
         <Style TargetType ="ComboBox">
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
@@ -17,38 +16,87 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Padding" Value="0,-3,0,1"/>
         </Style>
+        <Style TargetType ="Button">
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
+            <Setter  Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Width" Value="60"/>
+        </Style>
+        <Style TargetType ="DataGrid">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
+            <Setter Property="Padding" Value="6,0"/>
+        </Style>
+        <Style TargetType ="TextBox">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <!--" local:RowNumber x:Name="RowNumber"/-->
     </Window.Resources>
 
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center"
           Height="420" Width="790">
-        
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
-        <ComboBox x:Name ="color" Grid.Column="0" VerticalAlignment="Center">
-            <ComboBoxItem IsSelected ="True">
-                <TextBlock Text ="Красный" Foreground="Firebrick"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <TextBlock Text ="Синий" Foreground="DarkBlue"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <TextBlock Text ="Зелёный" Foreground="DarkGreen"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <TextBlock Text ="Оранжевый" Foreground="DarkOrange"/>
-            </ComboBoxItem>
-            <ComboBoxItem>
-                <TextBlock Text ="Фиолетовый" Foreground="DarkMagenta"/>
-            </ComboBoxItem>
-            <!--ComboBoxItem>
-                <TextBlock Text ="Другой цвет" Foreground="#FF34345F"/>
-            </ComboBoxItem>-->
-            </ComboBox>
+
+        <TextBox x:Name="time_start" Grid.Column="0" Grid.Row="0" TextChanged="Time_start_TextChanged"/>
+        <TextBox x:Name="time_stop" Grid.Column="0" Grid.Row="1" TextChanged="Time_stop_TextChanged"/>
+        <TextBox x:Name="ampl" Grid.Column="0" Grid.Row="2" TextChanged="Ampl_TextChanged"/>
+        <ComboBox x:Name ="color_box" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">
+            <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
+            <ComboBoxItem Content="Синий" Foreground="DarkBlue"/>
+            <ComboBoxItem Content="Зелёный" Foreground="DarkGreen"/>
+            <ComboBoxItem Content="Оранжевый" Foreground="DarkOrange"/>
+            <ComboBoxItem Content="Фиолетовый" Foreground="DarkMagenta"/>
+            <!--ComboBoxItem Content="Другой цвет" Foreground="#FF34345F"/>-->
+        </ComboBox>
+
+        <Button x:Name="plus" Grid.Column="0" Grid.Row="4"
+                HorizontalAlignment="Left" Click="Plus_Click">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid x:Name="button_plus">
+                        <Ellipse x:Name="buttonSurface" Fill="LightBlue"/>
+                        <Label HorizontalAlignment="Center" Content="+"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="minus" Grid.Column="0" Grid.Row="4"
+                HorizontalAlignment="Right" Click="Minus_Click">
+            <Button.Template>
+                <ControlTemplate>
+                    <Grid x:Name="button_minus">
+                        <Ellipse x:Name="buttonSurface" Fill="LightBlue"/>
+                        <Label HorizontalAlignment="Center" Content="-" Padding="5,0"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="table_LoadingRow" 
+                  Grid.Column="1" Height="420" Grid.RowSpan="5" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
+                <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}" />
+                <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}" />
+                <DataGridTextColumn x:Name="color" Header="Цвет" Binding="{Binding Path=Color}"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
