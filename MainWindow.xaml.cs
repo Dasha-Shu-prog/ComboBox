@@ -32,10 +32,11 @@ namespace Table1
             const int MAX_TIME = 180;
             const int MIN_AMPL = -50;
             const int MAX_AMPL = 50;
-            ArrayList listStrobe = new ArrayList();
+            List listStrobe = new List();
         public MainWindow()
         {
             InitializeComponent();
+     
         }
         private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -80,28 +81,43 @@ namespace Table1
             if (value < MIN_AMPL)
                 value = MIN_AMPL;
         }
-        private void table_LoadingRow(object sender, DataGridRowEventArgs e)
+        private int num = 1;
+        private void Table_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            e.Row.Header = (e.Row.GetIndex()+1).ToString();
+           // e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            num++;
+            //         Strobe_Characteristic val = (Strobe_Characteristic) e.Row.DataContext
+            //e.Row.Header = NUMB;
+            //DataGrid dataGrid = sender as DataGrid;
+            //Strobe_Characteristic itemValue = (Strobe_Characteristic) dataGrid.Items.GetItemAt(0);
+            //Strobe_Characteristic currentValue = (Strobe_Characteristic)e.Row.DataContext;
+            //currentValue.Number = e.Row.GetIndex() + 1;
+            //dgr.Item = currentValue;
         }
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
             Strobe_Characteristic strobe1 = new Strobe_Characteristic
             {
+                //Number = num,
                 Time_start = t_start,
                 Time_stop = t_stop,
                 Amplitude = val_ampl,
                 Color = color_box.Text
             };
+
+       
+
             table.Items.Add(strobe1);
-            listStrobe.Add(strobe1);
+            //listStrobe.ListItems.Add;
         }
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
             table.Items.Remove(table.SelectedItem);
             table.Items.Refresh();
-            listStrobe.Remove(table.SelectedItems);
+            listStrobe.ListItems.Remove((ListItem)table.SelectedItem);
+         
         }
-        //linegraph.Plot(x, y);
+       // linegraph.Plot(x, y);
     }    
 }
