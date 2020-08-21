@@ -91,10 +91,10 @@
             </Button.Template>
         </Button>
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
-                  Grid.Column="1" Height="420" Grid.RowSpan="5" IsReadOnly="True">
+                  Grid.Column="1" Height="420" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False">
            
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NUMB" Header="№" Binding="{Binding Path=Number}"/>
+                <DataGridTextColumn x:Name="NUMB" Header="№"/>
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
                 <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}" />
                 <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}" />

@@ -32,7 +32,7 @@ namespace Table1
             const int MAX_TIME = 180;
             const int MIN_AMPL = -50;
             const int MAX_AMPL = 50;
-            List listStrobe = new List();
+            List<Strobe_Characteristic> listStrobe = new List<Strobe_Characteristic>();
         public MainWindow()
         {
             InitializeComponent();
@@ -81,16 +81,16 @@ namespace Table1
             if (value < MIN_AMPL)
                 value = MIN_AMPL;
         }
-        private int num = 1;
+        //private int num = 1;
         private void Table_LoadingRow(object sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex()+1).ToString();
-           // e.Row.Header = (e.Row.GetIndex() + 1).ToString();
-            num++;
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            //NUMB column = e.Row.Item;
+            //num++;
             //         Strobe_Characteristic val = (Strobe_Characteristic) e.Row.DataContext
             //e.Row.Header = NUMB;
-            //DataGrid dataGrid = sender as DataGrid;
-            //Strobe_Characteristic itemValue = (Strobe_Characteristic) dataGrid.Items.GetItemAt(0);
+            //DataGridTextRow dataGrid = sender as DataGridTextColumn;
+            //Strobe_Characteristic Value = (Strobe_Characteristic) dataGrid.Items.GetItemAt(0);
             //Strobe_Characteristic currentValue = (Strobe_Characteristic)e.Row.DataContext;
             //currentValue.Number = e.Row.GetIndex() + 1;
             //dgr.Item = currentValue;
@@ -105,18 +105,14 @@ namespace Table1
                 Amplitude = val_ampl,
                 Color = color_box.Text
             };
-
-       
-
             table.Items.Add(strobe1);
-            //listStrobe.ListItems.Add;
+            listStrobe.Add(strobe1);
         }
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
             table.Items.Remove(table.SelectedItem);
             table.Items.Refresh();
-            listStrobe.ListItems.Remove((ListItem)table.SelectedItem);
-         
+            listStrobe.Remove((Strobe_Characteristic)table.SelectedItem);        
         }
        // linegraph.Plot(x, y);
     }    
