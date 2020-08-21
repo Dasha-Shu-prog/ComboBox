@@ -32,11 +32,14 @@ namespace Table1
             const int MAX_TIME = 180;
             const int MIN_AMPL = -50;
             const int MAX_AMPL = 50;
-            List<Strobe_Characteristic> listStrobe = new List<Strobe_Characteristic>();
+            List<Strobe_Characteristic> listStrobe;
+            Strobe_Characteristic strobe1;
         public MainWindow()
         {
             InitializeComponent();
-     
+            var x = Enumerable.Range(0, 1001).Select(i => i / 10.0).ToArray();
+            var y = x.Select(v => Math.Abs(v) < 1e-10 ? 1 : Math.Sin(v) / v).ToArray();
+            linegraph.Plot(x, y);
         }
         private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -81,39 +84,37 @@ namespace Table1
             if (value < MIN_AMPL)
                 value = MIN_AMPL;
         }
-        //private int num = 1;
+        private int num = 1;
         private void Table_LoadingRow(object sender, DataGridRowEventArgs e)
         {
+            //
+            //
+            //
+            //
+            num++;
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
-            //NUMB column = e.Row.Item;
-            //num++;
-            //         Strobe_Characteristic val = (Strobe_Characteristic) e.Row.DataContext
-            //e.Row.Header = NUMB;
-            //DataGridTextRow dataGrid = sender as DataGridTextColumn;
-            //Strobe_Characteristic Value = (Strobe_Characteristic) dataGrid.Items.GetItemAt(0);
-            //Strobe_Characteristic currentValue = (Strobe_Characteristic)e.Row.DataContext;
-            //currentValue.Number = e.Row.GetIndex() + 1;
-            //dgr.Item = currentValue;
         }
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
-            Strobe_Characteristic strobe1 = new Strobe_Characteristic
+            strobe1 = new Strobe_Characteristic 
             {
-                //Number = num,
+                Number = num,
                 Time_start = t_start,
                 Time_stop = t_stop,
                 Amplitude = val_ampl,
                 Color = color_box.Text
             };
-            table.Items.Add(strobe1);
-            listStrobe.Add(strobe1);
+            listStrobe = new List<Strobe_Characteristic> { strobe1 };
+            listStrobe.Capacity = 200;
+            table.ItemsSource = listStrobe;
+            Console.WriteLine(listStrobe);
         }
+
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
-            table.Items.Remove(table.SelectedItem);
+            listStrobe.RemoveAt(listStrobe.Count - 1);
             table.Items.Refresh();
-            listStrobe.Remove((Strobe_Characteristic)table.SelectedItem);        
+            num--;
         }
-       // linegraph.Plot(x, y);
     }    
 }

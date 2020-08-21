@@ -35,3 +35,13 @@ C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\InteractiveDataDis
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.xml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csproj.CopyComplete
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Linq.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.ValueTuple.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Linq.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.ValueTuple.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Core.dll
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Core.xml
