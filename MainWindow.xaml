@@ -15,7 +15,7 @@
             <Setter Property="Width" Value="200"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="0,-3,0,1"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
         </Style>
         <Style TargetType ="Button">
             <Setter Property="FontSize" Value="40"/>
@@ -23,6 +23,17 @@
             <Setter  Property="FontWeight" Value="Bold"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="Width" Value="60"/>
+        </Style>
+        <Style TargetType="RepeatButton">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Width" Value="36"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#60B9CE"/>
+            <Setter Property="Padding" Value="0,-5,0,1" />
         </Style>
         <Style TargetType ="DataGrid">
             <Setter Property="FontSize" Value="24"/>
@@ -36,10 +47,17 @@
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
+        <Style TargetType ="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
     <Grid HorizontalAlignment="Center" 
-          VerticalAlignment="Center">
+          VerticalAlignment="Center"
+          Background="AliceBlue">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -49,24 +67,56 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <TextBox x:Name="time_start" Grid.Column="0" Grid.Row="0" TextChanged="Time_start_TextChanged"/>
-        <TextBox x:Name="time_stop" Grid.Column="0" Grid.Row="1" TextChanged="Time_stop_TextChanged"/>
-        <TextBox x:Name="ampl" Grid.Column="0" Grid.Row="2" TextChanged="Ampl_TextChanged"/>
-        <ComboBox x:Name ="color_box" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">
+        <RepeatButton x:Name="decrement_t_start" Grid.Column="0" Content="&lt;" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" 
+                      Click="Decrement_t_start_Click" Grid.Row="0"/>
+        <RepeatButton x:Name="increment_t_start" Grid.Column="2" Content="&gt;" 
+                      HorizontalAlignment="Right" VerticalAlignment="Center" 
+                      Click="Increment_t_start_Click" Grid.Row="0"/>
+        <TextBlock Text="Время начала" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top"/>
+        <TextBox x:Name="time_start" Grid.Column="1" Grid.Row="0" TextChanged="Time_start_TextChanged"
+                 Focusable="False" MouseDown="Time_start_MouseDown"
+                 PreviewKeyDown="Time_start_PreviewKeyDown" KeyDown="Time_start_KeyDown"/>
+
+        <RepeatButton x:Name="decrement_t_stop" Grid.Column="0" Content="&lt;" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" 
+                      Click="Decrement_t_stop_Click" Grid.Row="1"/>
+        <RepeatButton x:Name="increment_t_stop" Grid.Column="2" Content="&gt;" 
+                      HorizontalAlignment="Right" VerticalAlignment="Center" 
+                      Click="Increment_t_stop_Click" Grid.Row="1"/>
+        <TextBlock Text="Время конца" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBox x:Name="time_stop" Grid.Column="1" Grid.Row="1" TextChanged="Time_stop_TextChanged"
+                 Focusable="False" MouseDown="Time_stop_MouseDown"
+                 PreviewKeyDown="Time_stop_PreviewKeyDown" KeyDown="Time_stop_KeyDown"/>
+
+        <RepeatButton x:Name="decrement_ampl" Grid.Column="0" Content="&lt;" 
+                      HorizontalAlignment="Left" VerticalAlignment="Center" 
+                      Click="Decrement_ampl_Click" Grid.Row="2"/>
+        <RepeatButton x:Name="increment_ampl" Grid.Column="2" Content="&gt;" 
+                      HorizontalAlignment="Right" VerticalAlignment="Center" 
+                      Click="Increment_ampl_Click" Grid.Row="2"/>
+        <TextBlock Text="Амплитуда" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"/>
+        <TextBox x:Name="ampl" Grid.Column="1" Grid.Row="2" TextChanged="Ampl_TextChanged"                 
+                 Focusable="False" MouseDown="Ampl_MouseDown"
+                 PreviewKeyDown="Ampl_PreviewKeyDown" KeyDown="Ampl_KeyDown"/>
+        
+        <ComboBox x:Name ="color_box" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Cursor="Hand">
             <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
             <ComboBoxItem Content="Синий" Foreground="DarkBlue"/>
             <ComboBoxItem Content="Зелёный" Foreground="DarkGreen"/>
             <ComboBoxItem Content="Оранжевый" Foreground="DarkOrange"/>
             <ComboBoxItem Content="Фиолетовый" Foreground="DarkMagenta"/>
-            <!--ComboBoxItem Content="Другой цвет" Foreground="#FF34345F"/>-->
+            <ComboBoxItem Content="Другой цвет" Foreground="#FF34345F" />
         </ComboBox>
 
-        <Button x:Name="plus" Grid.Column="0" Grid.Row="4"
+        <Button x:Name="plus" Grid.Column="1" Grid.Row="4"
                 HorizontalAlignment="Left" Click="Plus_Click">
             <Button.Template>
                 <ControlTemplate>
@@ -78,7 +128,7 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="minus" Grid.Column="0" Grid.Row="4"
+        <Button x:Name="minus" Grid.Column="1" Grid.Row="4"
                 HorizontalAlignment="Right" Click="Minus_Click">
             <Button.Template>
                 <ControlTemplate>
@@ -89,9 +139,9 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
-                  Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False">
-           
+                  Grid.Column="3" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False">
             <DataGrid.Columns>
                 <!--<DataGridTextColumn x:Name="NUMB" Header="№"/>-->
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
@@ -100,10 +150,10 @@
                 <DataGridTextColumn x:Name="color" Header="Цвет" Binding="{Binding Path=Color}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" Height="600" Width="500"
-                  BottomTitle="Amplitude" LeftTitle="Time">
-            <d3:LineGraph x:Name="linegraph" Description="Мой график" 
-                          Stroke="Blue" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        
+        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Height="600" Width="500"
+                  BottomTitle="Amplitude" LeftTitle="Time" PlotHeight="200" >
+            <d3:LineGraph x:Name="linegraph" Description="Стробы"/>
         </d3:Chart>
     </Grid>
 </Window>
