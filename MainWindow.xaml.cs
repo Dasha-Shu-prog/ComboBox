@@ -1,29 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Schema;
 
 namespace Table1
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
-     public partial class MainWindow : Window
+    public partial class MainWindow : Window
      {
             private int t_start = 0;
             private int t_stop = 0;
@@ -32,15 +19,25 @@ namespace Table1
             const int MAX_TIME = 180;
             const int MIN_AMPL = -50;
             const int MAX_AMPL = 50;
-            List<Strobe_Characteristic> listStrobe;
+
+            List<int> xCoords = new List<int>();
+            List<int> yCoords = new List<int>();
+
+        List<Strobe_Characteristic> listStrobe = new List<Strobe_Characteristic>();
             Strobe_Characteristic strobe1;
         public MainWindow()
         {
             InitializeComponent();
-            var x = Enumerable.Range(0, 1001).Select(i => i / 10.0).ToArray();
-            var y = x.Select(v => Math.Abs(v) < 1e-10 ? 1 : Math.Sin(v) / v).ToArray();
-            linegraph.Plot(x, y);
+            linegraph.Plot(xCoords, yCoords);
         }
+
+        private void AddToGraph(int time, int aplitude)
+        {
+            xCoords.Add(aplitude);
+            yCoords.Add(time);
+            linegraph.Plot(xCoords, yCoords);
+        }
+
         private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Int32.TryParse(time_start.Text, out int result_t_start))
@@ -86,34 +83,32 @@ namespace Table1
         }
         private int num = 1;
         private void Table_LoadingRow(object sender, DataGridRowEventArgs e)
-        {
-            //
-            //
-            //
-            //
-            num++;
+        {         
             e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
         private void Plus_Click(object sender, RoutedEventArgs e)
         {
             strobe1 = new Strobe_Characteristic 
             {
-                Number = num,
+                //Number = num,
                 Time_start = t_start,
                 Time_stop = t_stop,
                 Amplitude = val_ampl,
                 Color = color_box.Text
             };
-            listStrobe = new List<Strobe_Characteristic> { strobe1 };
-            listStrobe.Capacity = 200;
-            table.ItemsSource = listStrobe;
+            num++;
+            listStrobe.Add(strobe1);
+            //table.Items.Add(strobe1);
+            table.Items.Add(listStrobe.Last());
+            AddToGraph(strobe1.Time_start, strobe1.Amplitude);
+            AddToGraph(strobe1.Time_stop, strobe1.Amplitude);
             Console.WriteLine(listStrobe);
         }
-
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
-            listStrobe.RemoveAt(listStrobe.Count - 1);
+            table.Items.Remove(table.SelectedItem);           
             table.Items.Refresh();
+            listStrobe.Remove((Strobe_Characteristic)table.SelectedItem);        
             num--;
         }
     }    

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Table1"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="980">
+        Title="MainWindow" Height="768" Width="1366">
     <Window.Resources>
         <Style TargetType ="ComboBox">
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
@@ -39,8 +39,7 @@
     </Window.Resources>
 
     <Grid HorizontalAlignment="Center" 
-          VerticalAlignment="Center"
-          Height="520" Width="970">
+          VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -91,21 +90,20 @@
             </Button.Template>
         </Button>
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
-                  Grid.Column="1" Height="420" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False">
+                  Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False">
            
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="NUMB" Header="№" Binding="{Binding Path=Number}"/>
+                <!--<DataGridTextColumn x:Name="NUMB" Header="№"/>-->
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
-                <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}" />
-                <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}" />
+                <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}"/>
+                <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}"/>
                 <DataGridTextColumn x:Name="color" Header="Цвет" Binding="{Binding Path=Color}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <d3:Chart Grid.Column="2" Name="plotter"  
-                  BottomTitle="Amplitude" LeftTitle="Time" Grid.RowSpan="5">
-            <d3:LineGraph x:Name="linegraph" Description="Simple linegraph"
-                          Stroke="Blue" StrokeThickness="3" Grid.RowSpan="5"
-                           VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" Height="600" Width="500"
+                  BottomTitle="Amplitude" LeftTitle="Time">
+            <d3:LineGraph x:Name="linegraph" Description="Мой график" 
+                          Stroke="Blue" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         </d3:Chart>
     </Grid>
 </Window>
