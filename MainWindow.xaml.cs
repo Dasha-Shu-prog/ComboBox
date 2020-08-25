@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Key = System.Windows.Input.Key;
+using InteractiveDataDisplay.WPF;
+using System.Windows.Media.Effects;
 
 namespace Table1
 {
@@ -22,28 +24,20 @@ namespace Table1
             const int MAX_TIME = 180;
             const int MIN_AMPL = -20;
             const int MAX_AMPL = 20;
-
-            //List<int> xCoords = new List<int>();
-            //List<int> yCoords = new List<int>();
-
+            List<int> xCoords = new List<int>();
+            List<int> yCoords = new List<int>();
             List<Strobe_Characteristic> listStrobe = new List<Strobe_Characteristic>();
             Strobe_Characteristic strobe1;
-            //line.IComponentConnector.li
         public MainWindow()
         {
             InitializeComponent();
-            
-            //linegraph.Plot(xCoords, yCoords);
+            var y = Enumerable.Range(0, 2000).Select(i => i / 10.0).ToArray();
+            var x = y.Select(v => Math.Sin(v + 100) / 1.0).ToArray();
+            var lg = new LineGraph();
+            lines.Children.Add(lg);
+            lg.Stroke = new SolidColorBrush(Colors.Black);
+            lg.Plot(x, y);
         }
-        //private void AddToGraph(int time, int aplitude)
-        //{
-        //    xCoords.Add(aplitude);
-        //    yCoords.Add(time);
-        //    Point pointTest = new Point(aplitude, time);
-        //    linegraph.Points.Add(pointTest);
-        //    linegraph.Plot(xCoords, yCoords);
-        //    linegraph.LayoutTransform = new LineSegment(amplitude, time);
-        //}
         private void Time_start_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Int32.TryParse(time_start.Text, out int result_t_start))
@@ -137,8 +131,13 @@ namespace Table1
             };
             listStrobe.Add(strobe1);            
             table.Items.Add(listStrobe.Last());
-            //AddToGraph(strobe1.Time_start, strobe1.Amplitude);
-            //AddToGraph(strobe1.Time_stop, strobe1.Amplitude);
+            var linegraph = new LineGraph();
+            lines.Children.Add(linegraph);                           
+            linegraph.Stroke = new VisualBrush(color_box);
+            linegraph.Description = String.Format("Строба {0}", + 1);
+            linegraph.StrokeThickness = 2;
+            linegraph.Plot(strobe1.Time_stop, strobe1.Amplitude);
+            linegraph.Plot(strobe1.Time_start, strobe1.Amplitude);           
             //Console.WriteLine(listStrobe);
         }
         private void Minus_Click(object sender, RoutedEventArgs e)

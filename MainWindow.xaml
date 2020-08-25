@@ -11,6 +11,7 @@
         <Style TargetType ="ComboBox">
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
             <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
             <Setter Property="Height" Value="36"/>
             <Setter Property="Width" Value="200"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -51,13 +52,13 @@
             <Setter Property="FontSize" Value="24"/>
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
             <Setter Property="Height" Value="36"/>
+            <Setter Property="Width" Value="200"/>
             <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
 
     <Grid HorizontalAlignment="Center" 
-          VerticalAlignment="Center"
-          Background="AliceBlue">
+          VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -106,14 +107,24 @@
         <TextBox x:Name="ampl" Grid.Column="1" Grid.Row="2" TextChanged="Ampl_TextChanged"                 
                  Focusable="False" MouseDown="Ampl_MouseDown"
                  PreviewKeyDown="Ampl_PreviewKeyDown" KeyDown="Ampl_KeyDown"/>
-        
-        <ComboBox x:Name ="color_box" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" Cursor="Hand">
-            <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
-            <ComboBoxItem Content="Синий" Foreground="DarkBlue"/>
-            <ComboBoxItem Content="Зелёный" Foreground="DarkGreen"/>
-            <ComboBoxItem Content="Оранжевый" Foreground="DarkOrange"/>
-            <ComboBoxItem Content="Фиолетовый" Foreground="DarkMagenta"/>
-            <ComboBoxItem Content="Другой цвет" Foreground="#FF34345F" />
+
+        <ComboBox x:Name ="color_box" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" 
+                  Cursor="Hand">
+            <ComboBoxItem IsSelected ="True">
+                <TextBlock Text ="Красный" Background="Firebrick"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Синий" Background="DarkBlue"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Зелёный" Background="DarkGreen"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Оранжевый" Background="DarkOrange"/>
+            </ComboBoxItem>
+            <ComboBoxItem>
+                <TextBlock Text ="Фиолетовый" Background="DarkMagenta"/>
+            </ComboBoxItem>
         </ComboBox>
 
         <Button x:Name="plus" Grid.Column="1" Grid.Row="4"
@@ -150,10 +161,11 @@
                 <DataGridTextColumn x:Name="color" Header="Цвет" Binding="{Binding Path=Color}"/>
             </DataGrid.Columns>
         </DataGrid>
-        
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Height="600" Width="500"
-                  BottomTitle="Amplitude" LeftTitle="Time" PlotHeight="200" >
-            <d3:LineGraph x:Name="linegraph" Description="Стробы"/>
+
+        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Height="700" Width="500"
+                  BottomTitle="Amplitude" LeftTitle="Time" PlotHeight="200">
+            <Grid Name="lines"/>
+            <!--<d3:LineGraph x:Name="linegraph" Description="Стробы"/>-->
         </d3:Chart>
     </Grid>
 </Window>
