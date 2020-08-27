@@ -3,10 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:p="clr-namespace:Table1.Properties"
         xmlns:local="clr-namespace:Table1"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366">
+        Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded"
+        >
     <Window.Resources>
         <Style TargetType ="ComboBox">
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
@@ -20,7 +22,7 @@
         <Style TargetType ="Button">
             <Setter Property="FontSize" Value="40"/>
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
-            <Setter  Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Height" Value="60"/>
             <Setter Property="Width" Value="60"/>
         </Style>
@@ -67,6 +69,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -76,34 +79,34 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <RepeatButton x:Name="decrement_t_start" Grid.Column="0" Content="&lt;"                        
-                      Click="Decrement_t_start_Click" Grid.Row="0"/>
-        <RepeatButton x:Name="increment_t_start" Grid.Column="2" Content="&gt;"                       
-                      Click="Increment_t_start_Click" Grid.Row="0"/>
+        <RepeatButton x:Name="decrementTimeStartButton" Grid.Column="0" Content="&lt;"                        
+                      Click="DecrementTimeStartClick" Grid.Row="0"/>
+        <RepeatButton x:Name="incrementTimeStartButton" Grid.Column="2" Content="&gt;"                       
+                      Click="IncrementTimeStartClick" Grid.Row="0"/>
         <TextBlock Text="Время начала" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top"/>
-        <TextBox x:Name="time_start" Grid.Column="1" Grid.Row="0" TextChanged="Time_start_TextChanged"
-                 Focusable="False" MouseDown="Time_start_MouseDown"
-                 PreviewKeyDown="Time_start_PreviewKeyDown" KeyDown="Time_start_KeyDown"/>
+        <TextBox x:Name="timeStartTextBox" Grid.Column="1" Grid.Row="0" TextChanged="TimeStartTextChanged"
+                 Focusable="False" MouseDown="TimeStartMouseDown"
+                 PreviewKeyDown="TimestartPreviewKeyDown" KeyDown="TimestartKeyDown"/>
 
-        <RepeatButton x:Name="decrement_t_stop" Grid.Column="0" Content="&lt;"                      
-                      Click="Decrement_t_stop_Click" Grid.Row="1"/>
-        <RepeatButton x:Name="increment_t_stop" Grid.Column="2" Content="&gt;" 
-                      Click="Increment_t_stop_Click" Grid.Row="1"/>
+        <RepeatButton x:Name="decrementTimeStopButton" Grid.Column="0" Content="&lt;"                      
+                      Click="DecrementTimeStopClick" Grid.Row="1"/>
+        <RepeatButton x:Name="incrementTimeStopButton" Grid.Column="2" Content="&gt;" 
+                      Click="IncrementTimeStopClick" Grid.Row="1"/>
         <TextBlock Text="Время конца" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"/>
-        <TextBox x:Name="time_stop" Grid.Column="1" Grid.Row="1" TextChanged="Time_stop_TextChanged"
-                 Focusable="False" MouseDown="Time_stop_MouseDown"
-                 PreviewKeyDown="Time_stop_PreviewKeyDown" KeyDown="Time_stop_KeyDown"/>
+        <TextBox x:Name="timeStopTextBox" Grid.Column="1" Grid.Row="1" TextChanged="TimeStopTextChanged"
+                 Focusable="False" MouseDown="TimeStopMouseDown"
+                 PreviewKeyDown="TimestopPreviewKeyDown" KeyDown="TimestopKeyDown"/>
 
-        <RepeatButton x:Name="decrement_ampl" Grid.Column="0" Content="&lt;" 
+        <RepeatButton x:Name="decrementAmplitudeButton" Grid.Column="0" Content="&lt;" 
                       HorizontalAlignment="Left" VerticalAlignment="Center" 
-                      Click="Decrement_ampl_Click" Grid.Row="2"/>
-        <RepeatButton x:Name="increment_ampl" Grid.Column="2" Content="&gt;" 
+                      Click="DecrementAmplitudeClick" Grid.Row="2"/>
+        <RepeatButton x:Name="incrementAmplitudeButton" Grid.Column="2" Content="&gt;" 
                       HorizontalAlignment="Right" VerticalAlignment="Center" 
-                      Click="Increment_ampl_Click" Grid.Row="2"/>
+                      Click="IncrementAmplitudeClick" Grid.Row="2"/>
         <TextBlock Text="Амплитуда" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"/>
-        <TextBox x:Name="ampl" Grid.Column="1" Grid.Row="2" TextChanged="Ampl_TextChanged"                 
-                 Focusable="False" MouseDown="Ampl_MouseDown"
-                 PreviewKeyDown="Ampl_PreviewKeyDown" KeyDown="Ampl_KeyDown"/>
+        <TextBox x:Name="amplTextBox" Grid.Column="1" Grid.Row="2" TextChanged="AmplitudeTextChanged"                 
+                 Focusable="False" MouseDown="AmplMouseDown"
+                 PreviewKeyDown="AmplPreviewKeyDown" KeyDown="AmplKeyDown"/>
 
         <ComboBox x:Name ="color_box" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Center">
             <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
@@ -115,24 +118,26 @@
         </ComboBox>
 
         <Button x:Name="plus" Grid.Column="1" Grid.Row="4"
-                HorizontalAlignment="Left" Click="Plus_Click">
+                HorizontalAlignment="Left" Click="PlusClick">
             <Button.Template>
                 <ControlTemplate>
-                    <Grid x:Name="button_plus">
-                        <Ellipse x:Name="buttonSurface" Fill="LightBlue"/>
-                        <Label HorizontalAlignment="Center" Content="+"/>
+                    <Grid>
+                        <Ellipse Fill="LightBlue"/>
+                        <Label HorizontalAlignment="Center" Content="+" Padding="1,1,1,8"
+                               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
         <Button x:Name="minus" Grid.Column="1" Grid.Row="4"
-                HorizontalAlignment="Right" Click="Minus_Click">
+                HorizontalAlignment="Right" Click="MinusClick">
             <Button.Template>
                 <ControlTemplate>
-                    <Grid x:Name="button_minus">
-                        <Ellipse x:Name="buttonSurface" Fill="LightBlue"/>
-                        <Label HorizontalAlignment="Center" Content="-" Padding="5,0"/>
+                    <Grid>
+                        <Ellipse Fill="LightBlue"/>
+                        <Label HorizontalAlignment="Center" Content="-" Padding="1,1,1,10"
+                               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     </Grid>
                 </ControlTemplate>
             </Button.Template>
@@ -141,7 +146,7 @@
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
                   Grid.Column="3" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn x:Name="NUMB" Header="№"/>-->
+                <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding Path=Id}" Visibility="Hidden"/>
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
                 <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}"/>
                 <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}"/>
@@ -150,8 +155,9 @@
         </DataGrid>
 
         <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Height="700" Width="550"
-                  BottomTitle="Amplitude" LeftTitle="Time" PlotHeight="200">
-            <Grid x:Name="lines" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+                  BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" PlotHeight="200">
+            <Grid x:Name="linesPlot" VerticalAlignment="Center" HorizontalAlignment="Center" MouseMove="LinesMouseMove"/>
         </d3:Chart>
+        <TextBlock x:Name="coordTextBlock" Grid.Row="5"  Grid.Column="4"/>
     </Grid>
 </Window>

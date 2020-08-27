@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Table1
 {
-    public class Strobe_Characteristic
+    public class StrobeCharacteristic
     {
-        //public int Number { set; get; }
+        public int Id { set; get; }
         public int Time_start { set; get; }
         public int Time_stop { set; get; }
         public int Amplitude { set; get; }

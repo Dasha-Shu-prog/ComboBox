@@ -7,7 +7,6 @@
 //     the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-
 namespace Table1.Properties
 {
 
@@ -22,7 +21,7 @@ namespace Table1.Properties
         public static Settings Default
         {
             get
-            {
+            {               
                 return defaultInstance;
             }
         }
