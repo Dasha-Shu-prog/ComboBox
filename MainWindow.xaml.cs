@@ -51,6 +51,112 @@ namespace Table1
             lg.Stroke = new SolidColorBrush(Colors.Black);
             lg.Plot(x, y);
             lg.Description = String.Format("Сигнал");
+
+            // Загрузка конфигурации
+            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string projectPath = appDataPath + "\\project_label";
+            string saveFilePath = projectPath + "\\save.txt";
+            using (StreamReader sr = new StreamReader(saveFilePath, Encoding.Default))
+            {
+                StrobeCharacteristic strobe = new StrobeCharacteristic();
+                string lineRow;
+                for (int index = 0; ; ++index)
+                {
+                    if ((lineRow = sr.ReadLine()) != null)
+                    {
+                        if (Int32.TryParse(lineRow, out int id))
+                            strobe.Id = id;
+                        else
+                            return;
+                    }
+                    else
+                        return;
+
+                    if ((lineRow = sr.ReadLine()) != null)
+                    {
+                        if (Int32.TryParse(lineRow, out int time_start))
+                            strobe.Time_start = time_start;
+                        else
+                            return;
+                    }
+                    else
+                        return;
+
+                    if ((lineRow = sr.ReadLine()) != null)
+                    {
+                        if (Int32.TryParse(lineRow, out int time_stop))
+                            strobe.Time_stop = time_stop;
+                        else
+                            return;
+                    }
+                    else
+                        return;
+                    if ((lineRow = sr.ReadLine()) != null)
+                    {
+                        if (Int32.TryParse(lineRow, out int amplitude))
+                            strobe.Amplitude = amplitude;
+                        else
+                            return;
+                    }
+                    else
+                        return;
+                    if ((lineRow = sr.ReadLine()) != null)
+                    {
+                            strobe.Color = lineRow;
+                    }
+                    else
+                        return;
+                    
+                    listStrobe.Insert(index, strobe);
+                    table.Items.Add(strobe);
+                    List<int> xCoords = new List<int>();
+                    List<int> yCoords = new List<int>();
+                    xCoords.Add(strobe.Amplitude);
+                    yCoords.Add(strobe.Time_start);
+                    xCoords.Add(strobe.Amplitude);
+                    yCoords.Add(strobe.Time_stop);
+                    var line = new LineGraph
+                    {
+                        StrokeThickness = 3,
+                        Description = $"Строб {listStrobe.Count}"
+                    };
+                    line.Plot(xCoords, yCoords);
+                    linesPlot.Children.Add(line);
+                    switch (strobe.Color)
+                    {
+                        case "Красный":
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.Firebrick);
+                                break;
+                            }
+                        case "Синий":
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.DarkBlue);
+                                break;
+                            }
+                        case "Зелёный":
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.DarkGreen);
+                                break;
+                            }
+                        case "Оранжевый":
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.DarkOrange);
+                                break;
+                            }
+                        case "Фиолетовый":
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.DarkMagenta);
+                                break;
+                            }
+                        case "Другой цвет":
+                            {
+                                line.Stroke = new SolidColorBrush(Colors.BlueViolet);
+                                break;
+                            }
+                    }
+                }
+            }
         }
         // Изменения значений в textbox
         private void TextChanged(TextBox textBox, ref int inputValue, RepeatButton incrementButton, RepeatButton decrementButton, bool isTime = true)
@@ -146,8 +252,7 @@ namespace Table1
             var line = new LineGraph
             {
                 StrokeThickness = 3,
-                //Description = $"Строб {listStrobe.Count}"
-                //Description = $"Строб {table.Items.Count}"
+                Description = $"Строб {listStrobe.Count}"
             };
             line.Plot(xCoords, yCoords);
             linesPlot.Children.Add(line);
@@ -184,11 +289,6 @@ namespace Table1
                         break;
                     }
             }
-            //int count = listStrobe.Count;
-            //for (int i = 1; i < listStrobe.Count; i++)
-            //{
-            //    line.Description = $"Строб {table.Items.Count}";
-            //}
         }
         // Удаление строк и строб
         private void MinusClick(object sender, RoutedEventArgs e)
@@ -203,8 +303,6 @@ namespace Table1
                 {
                     listStrobe.RemoveAt(row);
                     linesPlot.Children.RemoveAt(row + 1);
-                    //linesPlot.Drop ;
-
                     break;
                 }
             }
@@ -352,30 +450,26 @@ namespace Table1
         }
         private void LinesMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //var linegraph = linesPlot.Children.GetEnumerator().Current;
-            //coordTextBlock.Text = "Время: " + linesPlot.Children.IndexOf(linesPlot) + " мкс " + " Амплитуда: " + 2 + "мВ";
+
+            //coordTextBlock.Text = "Время: " +  + " мкс " + " Амплитуда: " +  + "мВ";
         }
-        //private void WindowClosed(object sender, EventArgs e)
-        //{
-        //    string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        //    string project = appData;
-        //}
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string projectPath = appDataPath + "\\project_label";
             string saveFilePath = projectPath + "\\save.txt";
-            //byte[] res = UnicodeEncoding.Unicode(table.Items);
-            //using (FileStream dataFile = File.Open(saveFilePath, FileMode.OpenOrCreate))
-            //{
-            //    dataFile.Seek(listStrobe.Count, SeekOrigin.End);
-            //    await dataFile.WriteAsync(res, listStrobe.Count, res.Length);
-            //}          
+            Directory.CreateDirectory(projectPath);
+            using (StreamWriter dataFile = new StreamWriter(saveFilePath, false, Encoding.UTF8))
+            {
+                foreach (var strobe in listStrobe)
+                {
+                    dataFile.WriteLine(strobe.Id);
+                    dataFile.WriteLine(strobe.Time_start);
+                    dataFile.WriteLine(strobe.Time_stop);
+                    dataFile.WriteLine(strobe.Amplitude);
+                    dataFile.WriteLine(strobe.Color);
+                }
+            }
         }
-        //protected override void OnClosing(CancelEventArgs e)
-        //{
-        //    Settings.Default.Save();
-        //    base.OnClosing(e);
-        //}
     }
 }
