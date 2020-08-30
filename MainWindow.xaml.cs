@@ -51,7 +51,6 @@ namespace Table1
             lg.Stroke = new SolidColorBrush(Colors.Black);
             lg.Plot(x, y);
             lg.Description = String.Format("Сигнал");
-
             // Загрузка конфигурации
             string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string projectPath = appDataPath + "\\project_label";
@@ -60,7 +59,7 @@ namespace Table1
             {
                 StrobeCharacteristic strobe = new StrobeCharacteristic();
                 string lineRow;
-                for (int index = 0; ; ++index)
+                for (int index = id; ; index++)
                 {
                     if ((lineRow = sr.ReadLine()) != null)
                     {
@@ -102,11 +101,11 @@ namespace Table1
                         return;
                     if ((lineRow = sr.ReadLine()) != null)
                     {
-                            strobe.Color = lineRow;
+                        strobe.Color = lineRow;
                     }
                     else
                         return;
-                    
+
                     listStrobe.Insert(index, strobe);
                     table.Items.Add(strobe);
                     List<int> xCoords = new List<int>();
@@ -235,7 +234,8 @@ namespace Table1
             }
             StrobeCharacteristic strobe = new StrobeCharacteristic
             {
-                Id = id++,
+                //Id = id++,
+                Id = listStrobe.Count + id++,
                 Time_start = t_start,
                 Time_stop = t_stop,
                 Amplitude = val_ampl,
@@ -450,7 +450,6 @@ namespace Table1
         }
         private void LinesMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
-
             //coordTextBlock.Text = "Время: " +  + " мкс " + " Амплитуда: " +  + "мВ";
         }
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)

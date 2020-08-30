@@ -7,8 +7,7 @@
         xmlns:local="clr-namespace:Table1"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded"
-        >
+        Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded" Closing="WindowClosing">
     <Window.Resources>
         <Style TargetType ="ComboBox">
             <Setter Property="FontFamily" Value="Arial Unicode MS"/>
@@ -144,7 +143,8 @@
         </Button>
 
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
-                  Grid.Column="3" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" EnableRowVirtualization="False" SelectionMode="Single">
+                  Grid.Column="3" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" 
+                  EnableRowVirtualization="False" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding Path=Id}" Visibility="Hidden"/>
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
@@ -154,9 +154,12 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" Height="700" Width="550"
-                  BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" PlotHeight="200">
-            <Grid x:Name="linesPlot" VerticalAlignment="Center" HorizontalAlignment="Center" MouseMove="LinesMouseMove"/>
+        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" 
+                  Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
+                  PlotHeight="200" PlotOriginX="-20" PlotWidth="45">
+            <Grid x:Name="linesPlot" VerticalAlignment="Center" 
+                  HorizontalAlignment="Center" 
+                  MouseMove="LinesMouseMove"/>
         </d3:Chart>
         <TextBlock x:Name="coordTextBlock" Grid.Row="5"  Grid.Column="4"/>
     </Grid>
