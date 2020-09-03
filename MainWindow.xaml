@@ -161,6 +161,5 @@
                   HorizontalAlignment="Center" 
                   MouseMove="LinesMouseMove"/>
         </d3:Chart>
-        <TextBlock x:Name="coordTextBlock" Grid.Row="5"  Grid.Column="4"/>
     </Grid>
 </Window>

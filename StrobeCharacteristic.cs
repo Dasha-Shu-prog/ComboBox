@@ -13,5 +13,10 @@ namespace Table1
         public int Time_stop { set; get; }
         public int Amplitude { set; get; }
         public string Color { set; get; }
+
+        internal IEnumerable<StrobeCharacteristic> Distinct()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
