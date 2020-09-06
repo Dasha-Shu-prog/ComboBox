@@ -93,7 +93,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Class1.cs" />
-    <Compile Include="Settings.cs" />
     <Compile Include="StrobeCharacteristic.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -27,7 +27,6 @@ C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csproj.Gene
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csproj.CoreCompileInputs.cache
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.exe
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.pdb
-C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csprojAssemblyReference.cache
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\InteractiveDataDisplay.WPF.dll
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.dll
@@ -45,3 +44,4 @@ C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Threading.T
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.ValueTuple.xml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Core.dll
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Core.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csprojAssemblyReference.cache

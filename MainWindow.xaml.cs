@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Data;
 using System.Linq;
 using System.Windows;
@@ -7,6 +8,7 @@ using System.Configuration;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Controls;
+using System.Collections.Generic;
 using InteractiveDataDisplay.WPF;
 using Key = System.Windows.Input.Key;
 using System.Collections.Specialized;
@@ -16,10 +18,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Web.UI.DataVisualization.Charting;
 using System.Windows.Data;
-using System.IO;
 using System.ComponentModel;
 using Table1.Properties;
-using System.Text;
 
 namespace Table1
 {
@@ -28,7 +28,7 @@ namespace Table1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private int id = 0;
+        public int id = 0;
         private int t_start = 0;
         private int t_stop = 0;
         private int val_ampl = 0;
@@ -52,20 +52,72 @@ namespace Table1
             lg.StrokeThickness = 2;
             lg.Plot(x, y);
             lg.Description = String.Format("Сигнал");
+            ConfigLoad();
+        }
+        private void FillLineGraph(StrobeCharacteristic strobe)
+        {
+                List<int> xCoords = new List<int>();
+                List<int> yCoords = new List<int>();
+                xCoords.Add(strobe.Amplitude);
+                yCoords.Add(strobe.Time_start);
+                xCoords.Add(strobe.Amplitude);
+                yCoords.Add(strobe.Time_stop);
+                var line = new LineGraph
+                {
+                    StrokeThickness = 3,
+                    Description = $"Строб {listStrobe.Count}"
+                };
+                line.Plot(xCoords, yCoords);
+                linesPlot.Children.Add(line);
+                switch (strobe.Color)
+                {
+                    case "Красный":
+                        {
+                            line.Stroke = new SolidColorBrush(Colors.Firebrick);
+                            break;
+                        }
+                    case "Синий":
+                        {
+                            line.Stroke = new SolidColorBrush(Colors.DarkBlue);
+                            break;
+                        }
+                    case "Зелёный":
+                        {
+                            line.Stroke = new SolidColorBrush(Colors.DarkGreen);
+                            break;
+                        }
+                    case "Оранжевый":
+                        {
+                            line.Stroke = new SolidColorBrush(Colors.DarkOrange);
+                            break;
+                        }
+                    case "Фиолетовый":
+                        {
+                            line.Stroke = new SolidColorBrush(Colors.DarkMagenta);
+                            break;
+                        }
+                    case "Другой цвет":
+                        {
+                            line.Stroke = new SolidColorBrush(Colors.BlueViolet);
+                            break;
+                        }
+                }
+        }
             // Загрузка конфигурации
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string projectPath = appDataPath + "\\project_label";
-            string saveFilePath = projectPath + "\\save.txt";
-            using (StreamReader sr = new StreamReader(saveFilePath, Encoding.Default))
+        private void ConfigLoad()
+        {
+            string path = @"d:\dataFile.txt";
+            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
-                StrobeCharacteristic strobe = new StrobeCharacteristic();
                 string lineRow;
                 for (int index = id; ; index++)
                 {
+                    StrobeCharacteristic strobe = new StrobeCharacteristic();
                     if ((lineRow = sr.ReadLine()) == null)
-                            return;
+                        return;
 
-   strobe.Id = id++;
+                    strobe.Id = id++;
 
                     if ((lineRow = sr.ReadLine()) != null)
                     {
@@ -74,9 +126,6 @@ namespace Table1
                         else
                             return;
                     }
-                    else
-                        return;
-
                     if ((lineRow = sr.ReadLine()) != null)
                     {
                         if (Int32.TryParse(lineRow, out int time_stop))
@@ -84,8 +133,6 @@ namespace Table1
                         else
                             return;
                     }
-                    else
-                        return;
                     if ((lineRow = sr.ReadLine()) != null)
                     {
                         if (Int32.TryParse(lineRow, out int amplitude))
@@ -93,64 +140,13 @@ namespace Table1
                         else
                             return;
                     }
-                    else
-                        return;
                     if ((lineRow = sr.ReadLine()) != null)
                     {
                         strobe.Color = lineRow;
                     }
-                    else
-                        return;
-
                     listStrobe.Insert(index, strobe);
                     table.Items.Insert(index, strobe);
-                    //table.bind
-                    List<int> xCoords = new List<int>();
-                    List<int> yCoords = new List<int>();
-                    xCoords.Add(strobe.Amplitude);
-                    yCoords.Add(strobe.Time_start);
-                    xCoords.Add(strobe.Amplitude);
-                    yCoords.Add(strobe.Time_stop);
-                    var line = new LineGraph
-                    {
-                        StrokeThickness = 3,
-                        Description = $"Строб {listStrobe.Count}"
-                    };
-                    line.Plot(xCoords, yCoords);
-                    linesPlot.Children.Add(line);
-                    switch (strobe.Color)
-                    {
-                        case "Красный":
-                            {
-                                line.Stroke = new SolidColorBrush(Colors.Firebrick);
-                                break;
-                            }
-                        case "Синий":
-                            {
-                                line.Stroke = new SolidColorBrush(Colors.DarkBlue);
-                                break;
-                            }
-                        case "Зелёный":
-                            {
-                                line.Stroke = new SolidColorBrush(Colors.DarkGreen);
-                                break;
-                            }
-                        case "Оранжевый":
-                            {
-                                line.Stroke = new SolidColorBrush(Colors.DarkOrange);
-                                break;
-                            }
-                        case "Фиолетовый":
-                            {
-                                line.Stroke = new SolidColorBrush(Colors.DarkMagenta);
-                                break;
-                            }
-                        case "Другой цвет":
-                            {
-                                line.Stroke = new SolidColorBrush(Colors.BlueViolet);
-                                break;
-                            }
-                    }
+                    FillLineGraph(strobe);
                 }
             }
         }
@@ -238,15 +234,17 @@ namespace Table1
                 Amplitude = val_ampl,
                 Color = color_box.Text
             };
-            //IEnumerable<StrobeCharacteristic> distinctstrobe = listStrobe.Distinct();
-            //foreach (var strobes in distinctstrobe)
-            //{
-            //    table.Items.Add(strobes);
-            //}
-
+            // Проверка уникальности строб
             bool isUnique = true;
             for (int i = 0; i < listStrobe.Count; i++)
             {
+                if (listStrobe.ElementAt(i).Color == strobe.Color)
+                {
+                    string messageBoxText = "Строб такого цвета уже существует!\nВыберете любой другой цвет!";
+                    string caption = "Предупреждение";
+                    MessageBox.Show(messageBoxText, caption, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 if (listStrobe.ElementAt(i).Time_start == strobe.Time_start &&
                     listStrobe.ElementAt(i).Time_stop == strobe.Time_stop &&
                     listStrobe.ElementAt(i).Amplitude == strobe.Amplitude &&
@@ -260,53 +258,7 @@ namespace Table1
             {
                 listStrobe.Add(strobe);
                 table.Items.Add(listStrobe.Last());
-
-                List<int> xCoords = new List<int>();
-                List<int> yCoords = new List<int>();
-                xCoords.Add(strobe.Amplitude);
-                yCoords.Add(strobe.Time_start);
-                xCoords.Add(strobe.Amplitude);
-                yCoords.Add(strobe.Time_stop);
-                var line = new LineGraph
-                {
-                    StrokeThickness = 3,
-                    Description = $"Строб {listStrobe.Count}"
-                };
-                line.Plot(xCoords, yCoords);
-                linesPlot.Children.Add(line);
-                switch (strobe.Color)
-                {
-                    case "Красный":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.Firebrick);
-                            break;
-                        }
-                    case "Синий":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkBlue);
-                            break;
-                        }
-                    case "Зелёный":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkGreen);
-                            break;
-                        }
-                    case "Оранжевый":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkOrange);
-                            break;
-                        }
-                    case "Фиолетовый":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkMagenta);
-                            break;
-                        }
-                    case "Другой цвет":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.BlueViolet);
-                            break;
-                        }
-                }
+                FillLineGraph(strobe);
             }
         }
         // Удаление строк и строб
@@ -316,7 +268,7 @@ namespace Table1
                 return;
 
             int selectedId = ((StrobeCharacteristic)table.SelectedItem).Id;
-            for (int row = 0; row < listStrobe.Count; ++row)
+            for (int row = 0; row < listStrobe.Count; row++)
             {
                 if (listStrobe.ElementAt(row).Id == selectedId)
                 {
@@ -327,6 +279,16 @@ namespace Table1
             }
             table.Items.Remove(table.SelectedItem);
             table.Items.Refresh();
+            int count = 0;
+            var enumerator = linesPlot.Children.GetEnumerator();
+            if (enumerator.MoveNext())
+            {
+                while (enumerator.MoveNext())
+                {
+                    LineGraph graph = (LineGraph)enumerator.Current;
+                    graph.Description = $"Строб {++count}";
+                }
+            }
         }
         private void MouseDownClick(TextBox box)
         {
@@ -467,25 +429,23 @@ namespace Table1
                 decrementAmplitudeButton.Focusable = true;
             }
         }
-        private void LinesMouseMove(object sender, System.Windows.Input.MouseEventArgs e)
+        private void LineMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var position = e.GetPosition(linesPlot);
-            plotter.ToolTip = position;
             var heightY = plotter.ActualHeight - position.Y;
             var widthX = plotter.ActualWidth - position.X;
             var realHeightY = heightY * plotter.PlotHeight / plotter.ActualHeight;
             var realWidthX = widthX * plotter.PlotWidth / plotter.ActualWidth;
-            int y = (int)realHeightY;
-            int x = (int)realWidthX;
+            int y = (int)realHeightY - 11;
+            int x = (int)realWidthX - 27;
             plotter.ToolTip = $"Время: " + y + " мкс\n Амплитуда:" + x + "мВ";
         }
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string projectPath = appDataPath + "\\project_label";
-            string saveFilePath = projectPath + "\\save.txt";
-            Directory.CreateDirectory(projectPath);
-            using (StreamWriter dataFile = new StreamWriter(saveFilePath, false, Encoding.UTF8))
+            // Запись строб в файл
+            string path = @"d:\dataFile.txt";
+            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            using (StreamWriter dataFile = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var strobe in listStrobe)
                 {
