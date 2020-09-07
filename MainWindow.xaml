@@ -8,57 +8,6 @@
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded" Closing="WindowClosing">
-    <Window.Resources>
-        <Style TargetType ="ComboBox">
-            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Padding" Value="0,0,0,0"/>
-        </Style>
-        <Style TargetType ="Button">
-            <Setter Property="FontSize" Value="40"/>
-            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Height" Value="60"/>
-            <Setter Property="Width" Value="60"/>
-        </Style>
-        <Style TargetType="RepeatButton">
-            <Setter Property="FontSize" Value="30"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Width" Value="36"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#60B9CE"/>
-            <Setter Property="Padding" Value="0,-5,0,1" />
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType ="DataGrid">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
-            <Setter Property="Padding" Value="6,0"/>
-        </Style>
-        <Style TargetType ="TextBox">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Width" Value="159"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType ="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontFamily" Value="Arial Unicode MS"/>
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-        </Style>
-    </Window.Resources>
-
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center">
 
@@ -79,35 +28,46 @@
         </Grid.ColumnDefinitions>
 
         <RepeatButton x:Name="decrementTimeStartButton" Grid.Column="0" Content="&lt;"                        
-                      Click="DecrementTimeStartClick" Grid.Row="0"/>
+                      Click="DecrementTimeStartClick" Grid.Row="0"
+                      Style="{DynamicResource rptBtnStyle}"/>
         <RepeatButton x:Name="incrementTimeStartButton" Grid.Column="2" Content="&gt;"                       
-                      Click="IncrementTimeStartClick" Grid.Row="0"/>
-        <TextBlock Text="Время начала" Grid.Column="1" Grid.Row="0" VerticalAlignment="Top"/>
+                      Click="IncrementTimeStartClick" Grid.Row="0"
+                      Style="{DynamicResource rptBtnStyle}"/>
+        <TextBlock Text="Время начала" Grid.Column="1" Grid.Row="0"
+                   Style="{DynamicResource txtBlockStyle}"/>
         <TextBox x:Name="timeStartTextBox" Grid.Column="1" Grid.Row="0" TextChanged="TimeStartTextChanged"
                  Focusable="False" MouseDown="TimeStartMouseDown" Text="0"
-                 PreviewKeyDown="TimestartPreviewKeyDown" KeyDown="TimestartKeyDown"/>
+                 PreviewKeyDown="TimestartPreviewKeyDown" KeyDown="TimestartKeyDown"
+                 Style="{DynamicResource txtBoxStyle}"/>
 
         <RepeatButton x:Name="decrementTimeStopButton" Grid.Column="0" Content="&lt;"                      
-                      Click="DecrementTimeStopClick" Grid.Row="1"/>
+                      Click="DecrementTimeStopClick" Grid.Row="1"
+                      Style="{DynamicResource rptBtnStyle}"/>
         <RepeatButton x:Name="incrementTimeStopButton" Grid.Column="2" Content="&gt;" 
-                      Click="IncrementTimeStopClick" Grid.Row="1"/>
-        <TextBlock Text="Время конца" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top"/>
+                      Click="IncrementTimeStopClick" Grid.Row="1"
+                      Style="{DynamicResource rptBtnStyle}"/>
+        <TextBlock Text="Время конца" Grid.Column="1" Grid.Row="1"
+                   Style="{DynamicResource txtBlockStyle}"/>
         <TextBox x:Name="timeStopTextBox" Grid.Column="1" Grid.Row="1" TextChanged="TimeStopTextChanged"
                  Focusable="False" MouseDown="TimeStopMouseDown" Text="0"
-                 PreviewKeyDown="TimestopPreviewKeyDown" KeyDown="TimestopKeyDown"/>
+                 PreviewKeyDown="TimestopPreviewKeyDown" KeyDown="TimestopKeyDown"
+                 Style="{DynamicResource txtBoxStyle}"/>
 
         <RepeatButton x:Name="decrementAmplitudeButton" Grid.Column="0" Content="&lt;" 
-                      HorizontalAlignment="Left" VerticalAlignment="Center" 
-                      Click="DecrementAmplitudeClick" Grid.Row="2"/>
+                      Click="DecrementAmplitudeClick" Grid.Row="2"
+                      Style="{DynamicResource rptBtnStyle}"/>
         <RepeatButton x:Name="incrementAmplitudeButton" Grid.Column="2" Content="&gt;" 
-                      HorizontalAlignment="Right" VerticalAlignment="Center" 
-                      Click="IncrementAmplitudeClick" Grid.Row="2"/>
-        <TextBlock Text="Амплитуда" Grid.Column="1" Grid.Row="2" VerticalAlignment="Top"/>
+                      Click="IncrementAmplitudeClick" Grid.Row="2"
+                      Style="{DynamicResource rptBtnStyle}"/>
+        <TextBlock Text="Амплитуда" Grid.Column="1" Grid.Row="2"
+                   Style="{DynamicResource txtBlockStyle}"/>
         <TextBox x:Name="amplTextBox" Grid.Column="1" Grid.Row="2" TextChanged="AmplitudeTextChanged"                 
                  Focusable="False" MouseDown="AmplMouseDown" Text="0"
-                 PreviewKeyDown="AmplPreviewKeyDown" KeyDown="AmplKeyDown"/>
+                 PreviewKeyDown="AmplPreviewKeyDown" KeyDown="AmplKeyDown"
+                 Style="{DynamicResource txtBoxStyle}"/>
 
-        <ComboBox x:Name ="color_box" Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Center">
+        <ComboBox x:Name ="color_box" Grid.Row="3" Grid.ColumnSpan="3"
+                  Style="{DynamicResource cmbBoxStyle}">
             <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
             <ComboBoxItem Content="Синий" Foreground="DarkBlue"/>
             <ComboBoxItem Content="Зелёный" Foreground="DarkGreen"/>
@@ -117,26 +77,28 @@
         </ComboBox>
 
         <Button x:Name="plus" Grid.Column="1" Grid.Row="4"
-                HorizontalAlignment="Left" Click="PlusClick">
+                HorizontalAlignment="Left" Click="PlusClick"
+                Style="{DynamicResource btnStyle}">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
                         <Ellipse Fill="LightBlue"/>
-                        <Label HorizontalAlignment="Center" Content="+" Padding="1,1,1,8"
-                               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <Label Content="+" Padding="1,1,1,4"
+                               Style="{DynamicResource lblStale}"/>
                     </Grid>
                 </ControlTemplate>
             </Button.Template>
         </Button>
 
         <Button x:Name="minus" Grid.Column="1" Grid.Row="4"
-                HorizontalAlignment="Right" Click="MinusClick">
+                HorizontalAlignment="Right" Click="MinusClick"
+                Style="{DynamicResource btnStyle}">
             <Button.Template>
                 <ControlTemplate>
                     <Grid>
                         <Ellipse Fill="LightBlue"/>
-                        <Label HorizontalAlignment="Center" Content="-" Padding="1,1,1,10"
-                               VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                        <Label Content="-" Padding="4,0,4,9"
+                               Style="{DynamicResource lblStale}"/>
                     </Grid>
                 </ControlTemplate>
             </Button.Template>
@@ -144,7 +106,8 @@
 
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
                   Grid.Column="3" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" 
-                  EnableRowVirtualization="False" SelectionMode="Single">
+                  EnableRowVirtualization="False" SelectionMode="Single"
+                  Style="{DynamicResource dataGtidStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding Path=Id}" Visibility="Hidden"/>
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
@@ -156,7 +119,8 @@
 
         <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
-                  PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45">
+                  PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45" 
+                  FontFamily="Arial Unicode MS" FontSize="24" >
             <Grid x:Name="linesPlot" VerticalAlignment="Center" 
                   HorizontalAlignment="Center" 
                   MouseLeftButtonDown="LineMouseDown"/>

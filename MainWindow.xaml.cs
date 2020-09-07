@@ -438,7 +438,7 @@ namespace Table1
             var realWidthX = widthX * plotter.PlotWidth / plotter.ActualWidth;
             int y = (int)realHeightY - 11;
             int x = (int)realWidthX - 27;
-            plotter.ToolTip = $"Время: " + y + " мкс\n Амплитуда:" + x + "мВ";
+            plotter.ToolTip = $"Время: " + y + " мкс\n Амплитуда: " + x + " мВ";
         }
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
