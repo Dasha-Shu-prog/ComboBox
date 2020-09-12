@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:p="clr-namespace:Table1.Properties"
         xmlns:local="clr-namespace:Table1"
+        xmlns:uc="clr-namespace:Table1"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded" Closing="WindowClosing">
@@ -23,50 +24,21 @@
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <RepeatButton x:Name="decrementTimeStartButton" Grid.Column="0" Content="&lt;"                        
-                      Click="DecrementTimeStartClick" Grid.Row="0"
-                      Style="{DynamicResource rptBtnStyle}"/>
-        <RepeatButton x:Name="incrementTimeStartButton" Grid.Column="2" Content="&gt;"                       
-                      Click="IncrementTimeStartClick" Grid.Row="0"
-                      Style="{DynamicResource rptBtnStyle}"/>
-        <TextBlock Text="Время начала" Grid.Column="1" Grid.Row="0"
+        <uc:TimeControl x:Name="timeStart" Text="0" Grid.Column="0" Grid.Row="0"/>
+        <uc:TimeControl x:Name="timeStop" Text="0" Grid.Column="0" Grid.Row="1"/>
+        <uc:AmplitudeControl x:Name="amplit" Text="0" Grid.Column="0" Grid.Row="2"/>
+        <TextBlock Text="Время начала" Grid.Column="0" Grid.Row="0"
                    Style="{DynamicResource txtBlockStyle}"/>
-        <TextBox x:Name="timeStartTextBox" Grid.Column="1" Grid.Row="0" TextChanged="TimeStartTextChanged"
-                 Focusable="False" MouseDown="TimeStartMouseDown" Text="0"
-                 PreviewKeyDown="TimestartPreviewKeyDown" KeyDown="TimestartKeyDown"
-                 Style="{DynamicResource txtBoxStyle}"/>
 
-        <RepeatButton x:Name="decrementTimeStopButton" Grid.Column="0" Content="&lt;"                      
-                      Click="DecrementTimeStopClick" Grid.Row="1"
-                      Style="{DynamicResource rptBtnStyle}"/>
-        <RepeatButton x:Name="incrementTimeStopButton" Grid.Column="2" Content="&gt;" 
-                      Click="IncrementTimeStopClick" Grid.Row="1"
-                      Style="{DynamicResource rptBtnStyle}"/>
-        <TextBlock Text="Время конца" Grid.Column="1" Grid.Row="1"
+        <TextBlock Text="Время конца" Grid.Column="0" Grid.Row="1"
                    Style="{DynamicResource txtBlockStyle}"/>
-        <TextBox x:Name="timeStopTextBox" Grid.Column="1" Grid.Row="1" TextChanged="TimeStopTextChanged"
-                 Focusable="False" MouseDown="TimeStopMouseDown" Text="0"
-                 PreviewKeyDown="TimestopPreviewKeyDown" KeyDown="TimestopKeyDown"
-                 Style="{DynamicResource txtBoxStyle}"/>
 
-        <RepeatButton x:Name="decrementAmplitudeButton" Grid.Column="0" Content="&lt;" 
-                      Click="DecrementAmplitudeClick" Grid.Row="2"
-                      Style="{DynamicResource rptBtnStyle}"/>
-        <RepeatButton x:Name="incrementAmplitudeButton" Grid.Column="2" Content="&gt;" 
-                      Click="IncrementAmplitudeClick" Grid.Row="2"
-                      Style="{DynamicResource rptBtnStyle}"/>
-        <TextBlock Text="Амплитуда" Grid.Column="1" Grid.Row="2"
+        <TextBlock Text="Амплитуда" Grid.Column="0" Grid.Row="2"
                    Style="{DynamicResource txtBlockStyle}"/>
-        <TextBox x:Name="amplTextBox" Grid.Column="1" Grid.Row="2" TextChanged="AmplitudeTextChanged"                 
-                 Focusable="False" MouseDown="AmplMouseDown" Text="0"
-                 PreviewKeyDown="AmplPreviewKeyDown" KeyDown="AmplKeyDown"
-                 Style="{DynamicResource txtBoxStyle}"/>
 
-        <ComboBox x:Name ="color_box" Grid.Row="3" Grid.ColumnSpan="3"
+        <ComboBox x:Name ="color_box" Grid.Row="3" Grid.Column="0"
                   Style="{DynamicResource cmbBoxStyle}">
             <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
             <ComboBoxItem Content="Синий" Foreground="DarkBlue"/>
@@ -76,7 +48,7 @@
             <ComboBoxItem Content="Другой цвет" Foreground="#FF34345F" />
         </ComboBox>
 
-        <Button x:Name="plus" Grid.Column="1" Grid.Row="4"
+        <Button x:Name="plus" Grid.Column="0" Grid.Row="4"
                 HorizontalAlignment="Left" Click="PlusClick"
                 Style="{DynamicResource btnStyle}">
             <Button.Template>
@@ -90,7 +62,7 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="minus" Grid.Column="1" Grid.Row="4"
+        <Button x:Name="minus" Grid.Column="0" Grid.Row="4"
                 HorizontalAlignment="Right" Click="MinusClick"
                 Style="{DynamicResource btnStyle}">
             <Button.Template>
@@ -105,7 +77,7 @@
         </Button>
 
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
-                  Grid.Column="3" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" 
+                  Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" 
                   EnableRowVirtualization="False" SelectionMode="Single"
                   Style="{DynamicResource dataGtidStyle}">
             <DataGrid.Columns>
@@ -117,7 +89,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="4" 
+        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
                   PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45" 
                   FontFamily="Arial Unicode MS" FontSize="24" >

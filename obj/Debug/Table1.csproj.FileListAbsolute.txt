@@ -44,4 +44,11 @@ C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Threading.T
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.ValueTuple.xml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Core.dll
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\bin\Debug\System.Reactive.Core.xml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\TimeControl.g.cs
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\AmplitudeControl.g.cs
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\App.baml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\AmplitudeControl.baml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Styles.baml
+C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\TimeControl.baml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csprojAssemblyReference.cache
