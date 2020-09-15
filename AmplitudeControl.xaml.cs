@@ -29,7 +29,6 @@ namespace Table1
 
             if (value < MIN_AMPL)
                 value = MIN_AMPL;
-
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
