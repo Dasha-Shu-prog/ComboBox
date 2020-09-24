@@ -26,9 +26,9 @@
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <uc:TimeControl x:Name="timeStart" Text="0" Grid.Column="0" Grid.Row="0"/>
-        <uc:TimeControl x:Name="timeStop" Text="0" Grid.Column="0" Grid.Row="1"/>
-        <uc:AmplitudeControl x:Name="amplit" Text="0" Grid.Column="0" Grid.Row="2"/>
+        <uc:NumericControl x:Name="timeStart" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="0"/>
+        <uc:NumericControl x:Name="timeStop" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="1"/>
+        <uc:NumericControl x:Name="amplit" Text="-15" MinValue="-15" MaxValue="15" Grid.Column="0" Grid.Row="2"/>
         <TextBlock Text="Время начала" Grid.Column="0" Grid.Row="0"
                    Style="{DynamicResource txtBlockStyle}"/>
 

@@ -84,16 +84,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AmplitudeControl.xaml.cs">
-      <DependentUpon>AmplitudeControl.xaml</DependentUpon>
+    <Compile Include="NumericControl.xaml.cs">
+      <DependentUpon>NumericControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimeControl.xaml.cs">
-      <DependentUpon>TimeControl.xaml</DependentUpon>
-    </Compile>
-    <Page Include="AmplitudeControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,7 +104,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TimeControl.xaml">
+    <Page Include="NumericControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

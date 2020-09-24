@@ -90,8 +90,7 @@ namespace Table1
         // Загрузка конфигурации
         private void ConfigLoad()
         {
-            string path = @"d:\dataFile.txt";
-            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
             using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
                 string lineRow;
@@ -142,9 +141,9 @@ namespace Table1
         // Добавление строк в таблицу и строб на график
         private void PlusClick(object sender, RoutedEventArgs e)
         {
-            t_start = int.Parse(timeStart.textBoxTime.Text);
-            t_stop = int.Parse(timeStop.textBoxTime.Text);
-            val_ampl = int.Parse(amplit.textBoxAmplitude.Text);
+            t_start = int.Parse(timeStart.textBox.Text);
+            t_stop = int.Parse(timeStop.textBox.Text);
+            val_ampl = int.Parse(amplit.textBox.Text);
             if (t_start >= t_stop)
             {
                 string messageBoxText = "Время начала должно быть меньше времени конца!";
@@ -232,8 +231,7 @@ namespace Table1
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Запись строб в файл
-            string path = @"d:\dataFile.txt";
-            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
             using (StreamWriter dataFile = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var strobe in listStrobe)

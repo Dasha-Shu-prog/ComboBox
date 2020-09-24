@@ -6,43 +6,43 @@ using System.Windows.Input;
 namespace Table1
 {
     /// <summary>
-    /// Логика взаимодействия для AmplitudeControl.xaml
+    /// Логика взаимодействия для TxtBoxControl.xaml
     /// </summary>
-    public partial class AmplitudeControl : UserControl
+    public partial class NumericControl : UserControl
     {
         int value = 0;
-        const int MIN_AMPL = -15;
-        const int MAX_AMPL = 15;
         public string Text
         {
-            get { return textBoxAmplitude.Text; }
-            set { textBoxAmplitude.Text = value; }
+            get { return textBox.Text; }
+            set { textBox.Text = value; }
         }
-        public AmplitudeControl()
+        public int MinValue { get; set; }
+        public int MaxValue { get; set; }
+        public NumericControl()
         {
             InitializeComponent();
         }
         private void ValidateTime(ref int value)
         {
-            if (value > MAX_AMPL)
-                value = MAX_AMPL;
-
-            if (value < MIN_AMPL)
-                value = MIN_AMPL;
+            if (value > MaxValue)           
+                value = MaxValue;
+            
+            if (value < MinValue)            
+                value = MinValue;
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (Int32.TryParse(textBoxAmplitude.Text, out int result))
+            if (Int32.TryParse(textBox.Text, out int result))
             {
                 ValidateTime(ref result);
                 value = result;
             }
-            textBoxAmplitude.Text = value.ToString();
+            textBox.Text = value.ToString();
 
-            if (value == MIN_AMPL)
+            if (value == MinValue)
                 decrement.IsEnabled = false;
 
-            else if (value == MAX_AMPL)
+            else if (value == MaxValue)
                 increment.IsEnabled = false;
 
             else
@@ -55,17 +55,17 @@ namespace Table1
         {
             int newValue = ++value;
             ValidateTime(ref newValue);
-            textBoxAmplitude.Text = newValue.ToString();
+            textBox.Text = newValue.ToString();
         }
         private void DecrementClick(object sender, RoutedEventArgs e)
         {
             int newValue = --value;
             ValidateTime(ref newValue);
-            textBoxAmplitude.Text = newValue.ToString();
+            textBox.Text = newValue.ToString();
         }
         private void Textbox_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            textBoxAmplitude.Focusable = true;
+            textBox.Focusable = true;
         }
         private void Textbox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -96,5 +96,6 @@ namespace Table1
                     }
             }
         }
+
     }
 }
