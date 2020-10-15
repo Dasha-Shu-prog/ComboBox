@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Table1"
         xmlns:uc="clr-namespace:Table1"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
-        mc:Ignorable="d"
+        mc:Ignorable="d" FontSize="24"
         Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded" Closing="WindowClosing">
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center">
@@ -48,6 +48,7 @@
             <ComboBoxItem Content="Другой цвет" Foreground="#FF34345F" />
         </ComboBox>
 
+        <CheckBox x:Name="check" Content="Limit graph" Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom"/>
         <Button x:Name="plus" Grid.Column="0" Grid.Row="4"
                 HorizontalAlignment="Left" Click="PlusClick"
                 Style="{DynamicResource btnStyle}">
@@ -91,11 +92,23 @@
 
         <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
-                  PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45" 
-                  FontFamily="Arial Unicode MS" FontSize="24" >
-            <Grid x:Name="linesPlot" VerticalAlignment="Center" 
+                  PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
+                  FontFamily="Arial Unicode MS" FontSize="24" Foreground="Red" SizeChanged="plotter_SizeChanged">
+            <Grid x:Name="linesPlot" VerticalAlignment="Center"
                   HorizontalAlignment="Center" 
                   MouseLeftButtonDown="LineMouseDown"/>
+            <d3:Chart.LegendContent>
+                <d3:LegendItemsPanel>
+                    <d3:LegendItemsPanel.Resources>
+                        <DataTemplate x:Key="InteractiveDataDisplay">
+                            <StackPanel Orientation="Vertical">
+                                <CheckBox x:Name="Envelope" Content="Огибающая"/>
+                                <CheckBox x:Name="Signal" Content="{Binding Path=lg.Description}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </d3:LegendItemsPanel.Resources>
+                </d3:LegendItemsPanel>
+            </d3:Chart.LegendContent>
         </d3:Chart>
     </Grid>
 </Window>

@@ -244,5 +244,17 @@ namespace Table1
                 }
             }
         }
+
+        private void plotter_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (check.IsChecked == true && table.SelectedItem != null)
+            {
+                foreach (var strobe in listStrobe)
+                {
+                    plotter.PlotOriginY = strobe.Time_start;
+                    plotter.PlotHeight = strobe.Time_stop;
+                }
+            }
+        }
     }
 }

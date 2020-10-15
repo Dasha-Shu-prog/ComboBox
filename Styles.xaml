@@ -63,4 +63,24 @@
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
+
+    <Style TargetType="ToolTip">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="Placement" Value="Bottom" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <StackPanel>
+                        <Border CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="20,10" BorderThickness="2" 
+                                BorderBrush="LightPink" Background="White">
+                            <StackPanel>
+                                <TextBlock FontSize="16" Text="{TemplateBinding Content}" Foreground="Black" />
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
