@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using InteractiveDataDisplay.WPF;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace Table1
 {
@@ -40,52 +42,52 @@ namespace Table1
         }
         private void FillLineGraph(StrobeCharacteristic strobe)
         {
-                List<int> xCoords = new List<int>();
-                List<int> yCoords = new List<int>();
-                xCoords.Add(strobe.Amplitude);
-                yCoords.Add(strobe.Time_start);
-                xCoords.Add(strobe.Amplitude);
-                yCoords.Add(strobe.Time_stop);
-                var line = new LineGraph
-                {
-                    StrokeThickness = 3,
-                    Description = $"Строб {listStrobe.Count}"
-                };
-                line.Plot(xCoords, yCoords);
-                linesPlot.Children.Add(line);
-                switch (strobe.Color)
-                {
-                    case "Красный":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.Firebrick);
-                            break;
-                        }
-                    case "Синий":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkBlue);
-                            break;
-                        }
-                    case "Зелёный":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkGreen);
-                            break;
-                        }
-                    case "Оранжевый":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkOrange);
-                            break;
-                        }
-                    case "Фиолетовый":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.DarkMagenta);
-                            break;
-                        }
-                    case "Другой цвет":
-                        {
-                            line.Stroke = new SolidColorBrush(Colors.BlueViolet);
-                            break;
-                        }
-                }
+            List<int> xCoords = new List<int>();
+            List<int> yCoords = new List<int>();
+            xCoords.Add(strobe.Amplitude);
+            yCoords.Add(strobe.Time_start);
+            xCoords.Add(strobe.Amplitude);
+            yCoords.Add(strobe.Time_stop);
+            var line = new LineGraph
+            {
+                StrokeThickness = 3,
+                Description = $"Строб {listStrobe.Count}"
+            };
+            line.Plot(xCoords, yCoords);
+            linesPlot.Children.Add(line);
+            switch (strobe.Color)
+            {
+                case "Красный":
+                    {
+                        line.Stroke = new SolidColorBrush(Colors.Firebrick);
+                        break;
+                    }
+                case "Синий":
+                    {
+                        line.Stroke = new SolidColorBrush(Colors.DarkBlue);
+                        break;
+                    }
+                case "Зелёный":
+                    {
+                        line.Stroke = new SolidColorBrush(Colors.DarkGreen);
+                        break;
+                    }
+                case "Оранжевый":
+                    {
+                        line.Stroke = new SolidColorBrush(Colors.DarkOrange);
+                        break;
+                    }
+                case "Фиолетовый":
+                    {
+                        line.Stroke = new SolidColorBrush(Colors.DarkMagenta);
+                        break;
+                    }
+                case "Другой цвет":
+                    {
+                        line.Stroke = new SolidColorBrush(Colors.BlueViolet);
+                        break;
+                    }
+            }
         }
         // Загрузка конфигурации
         private void ConfigLoad()
@@ -178,7 +180,7 @@ namespace Table1
                 {
                     isUnique = false;
                     break;
-                }              
+                }
             }
             if (isUnique)
             {
@@ -245,16 +247,29 @@ namespace Table1
             }
         }
 
-        private void plotter_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void LegendGraph_Click(object sender, RoutedEventArgs e)
         {
-            if (check.IsChecked == true && table.SelectedItem != null)
+            if (LegendGraph.IsChecked == true)
             {
-                foreach (var strobe in listStrobe)
-                {
-                    plotter.PlotOriginY = strobe.Time_start;
-                    plotter.PlotHeight = strobe.Time_stop;
-                }
+                plotter.LegendVisibility = Visibility.Hidden;
+                LegendGraph.Content = "Показать легенду";
             }
+            else
+            {
+                plotter.LegendVisibility = Visibility.Visible;
+                LegendGraph.Content = "Скрыть легенду";
+            }
+        }
+    }
+    public class VisibilityToCheckedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((Visibility)value) == Visibility.Visible;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

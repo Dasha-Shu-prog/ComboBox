@@ -8,37 +8,46 @@
         xmlns:uc="clr-namespace:Table1"
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d" FontSize="24"
-        Title="MainWindow" Height="768" Width="1366" Loaded="WindowLoaded" Closing="WindowClosing">
+        Title="MainWindow" Height="900" Width="1600" Loaded="WindowLoaded" Closing="WindowClosing">
+    <Window.Resources>
+        <local:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
+    </Window.Resources>
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <uc:NumericControl x:Name="timeStart" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="0"/>
-        <uc:NumericControl x:Name="timeStop" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="1"/>
-        <uc:NumericControl x:Name="amplit" Text="-15" MinValue="-15" MaxValue="15" Grid.Column="0" Grid.Row="2"/>
-        <TextBlock Text="Время начала" Grid.Column="0" Grid.Row="0"
+        <CheckBox x:Name="LegendGraph" Content="Скрыть легенду"
+                  Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" Click="LegendGraph_Click"/>
+        <uc:MinMaxGraphControl x:Name="SliderGraph" Grid.Column="2" Grid.Row="0"/>
+
+        <uc:NumericControl x:Name="timeStart" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="1"/>
+        <uc:NumericControl x:Name="timeStop" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="2"/>
+        <uc:NumericControl x:Name="amplit" Text="-15" MinValue="-15" MaxValue="15" Grid.Column="0" Grid.Row="3"/>
+        
+        <TextBlock Text="Время начала" Grid.Column="0" Grid.Row="1"
                    Style="{DynamicResource txtBlockStyle}"/>
 
-        <TextBlock Text="Время конца" Grid.Column="0" Grid.Row="1"
+        <TextBlock Text="Время конца" Grid.Column="0" Grid.Row="2"
                    Style="{DynamicResource txtBlockStyle}"/>
 
-        <TextBlock Text="Амплитуда" Grid.Column="0" Grid.Row="2"
+        <TextBlock Text="Амплитуда" Grid.Column="0" Grid.Row="3"
                    Style="{DynamicResource txtBlockStyle}"/>
 
-        <ComboBox x:Name ="color_box" Grid.Row="3" Grid.Column="0"
+        <ComboBox x:Name ="color_box" Grid.Column="0" Grid.Row="4"
                   Style="{DynamicResource cmbBoxStyle}">
             <ComboBoxItem IsSelected ="True" Content="Красный" Foreground="Firebrick"/>
             <ComboBoxItem Content="Синий" Foreground="DarkBlue"/>
@@ -48,8 +57,7 @@
             <ComboBoxItem Content="Другой цвет" Foreground="#FF34345F" />
         </ComboBox>
 
-        <CheckBox x:Name="check" Content="Limit graph" Grid.Column="0" Grid.Row="3" VerticalAlignment="Bottom"/>
-        <Button x:Name="plus" Grid.Column="0" Grid.Row="4"
+        <Button x:Name="plus" Grid.Column="0" Grid.Row="5"
                 HorizontalAlignment="Left" Click="PlusClick"
                 Style="{DynamicResource btnStyle}">
             <Button.Template>
@@ -63,7 +71,7 @@
             </Button.Template>
         </Button>
 
-        <Button x:Name="minus" Grid.Column="0" Grid.Row="4"
+        <Button x:Name="minus" Grid.Column="0" Grid.Row="5"
                 HorizontalAlignment="Right" Click="MinusClick"
                 Style="{DynamicResource btnStyle}">
             <Button.Template>
@@ -78,9 +86,9 @@
         </Button>
 
         <DataGrid x:Name="table" AutoGenerateColumns="True" LoadingRow="Table_LoadingRow" 
-                  Grid.Column="1" Grid.Row="0" Grid.RowSpan="5" IsReadOnly="True" 
+                  Grid.Column="1" Grid.Row="1" Grid.RowSpan="5" IsReadOnly="True" 
                   EnableRowVirtualization="False" SelectionMode="Single"
-                  Style="{DynamicResource dataGtidStyle}">
+                  Style="{DynamicResource dataGtidStyle}" CanUserSortColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding Path=Id}" Visibility="Hidden"/>
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
@@ -90,25 +98,25 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <d3:Chart Name="plotter" Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" 
+        <d3:Chart Name="plotter" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
                   PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
-                  FontFamily="Arial Unicode MS" FontSize="24" Foreground="Red" SizeChanged="plotter_SizeChanged">
-            <Grid x:Name="linesPlot" VerticalAlignment="Center"
-                  HorizontalAlignment="Center" 
-                  MouseLeftButtonDown="LineMouseDown"/>
+                  FontFamily="Arial Unicode MS" FontSize="24" Foreground="Red">
             <d3:Chart.LegendContent>
                 <d3:LegendItemsPanel>
                     <d3:LegendItemsPanel.Resources>
-                        <DataTemplate x:Key="InteractiveDataDisplay">
-                            <StackPanel Orientation="Vertical">
-                                <CheckBox x:Name="Envelope" Content="Огибающая"/>
-                                <CheckBox x:Name="Signal" Content="{Binding Path=lg.Description}"/>
+                        <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}" Content="{Binding Path=Description}"/>
+                                <!--<RadioButton IsChecked="{Binding Path=}"/>-->
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>
                 </d3:LegendItemsPanel>
             </d3:Chart.LegendContent>
+            <Grid x:Name="linesPlot" VerticalAlignment="Center"
+                  HorizontalAlignment="Center" 
+                  MouseLeftButtonDown="LineMouseDown"/>
         </d3:Chart>
     </Grid>
 </Window>

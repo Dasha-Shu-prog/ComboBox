@@ -88,3 +88,6 @@ C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.Prope
 C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csproj.GenerateResource.cache
 C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csproj.CoreCompileInputs.cache
 C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csproj.CopyComplete
+C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\MinMaxGraphControl.g.cs
+C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\MinMaxGraphControl.baml
+C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csprojAssemblyReference.cache

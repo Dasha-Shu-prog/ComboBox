@@ -73,7 +73,7 @@
                 <ControlTemplate TargetType="ToolTip">
                     <StackPanel>
                         <Border CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="20,10" BorderThickness="2" 
-                                BorderBrush="LightPink" Background="White">
+                                BorderBrush="Red" Background="White">
                             <StackPanel>
                                 <TextBlock FontSize="16" Text="{TemplateBinding Content}" Foreground="Black" />
                             </StackPanel>
@@ -82,5 +82,41 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="simpleSlider" TargetType="{x:Type Slider}">
+        <Border SnapsToDevicePixels="true"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle x:Name="PART_SelectionRange"/>
+
+                <Track x:Name="PART_Track" Grid.Row="1">
+                    <Track.Thumb>
+                        <Thumb x:Name="Thumb">
+                            <Thumb.Template>
+                                <ControlTemplate TargetType="Thumb">
+                                    <Rectangle Fill="Blue"
+                                    Stroke="LightBlue"
+                                    StrokeThickness="1"
+                                    Width="10"
+                                    Height="18"
+                                    SnapsToDevicePixels="True"/>
+                                </ControlTemplate>
+                            </Thumb.Template>
+                        </Thumb>
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <Style TargetType="Slider">
+        <Setter Property="Background" Value="Transparent"/>
     </Style>
 </ResourceDictionary>
