@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using InteractiveDataDisplay.WPF;
 using System.Windows.Data;
 using System.Globalization;
+using System.Windows.Input;
 
 namespace Table1
 {
@@ -92,7 +93,8 @@ namespace Table1
         // Загрузка конфигурации
         private void ConfigLoad()
         {
-            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
+            //string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
+            string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
             using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
                 string lineRow;
@@ -233,7 +235,8 @@ namespace Table1
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Запись строб в файл
-            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
+            //string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
+            string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
             using (StreamWriter dataFile = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var strobe in listStrobe)
@@ -272,4 +275,15 @@ namespace Table1
             return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
+    //public class MaxHeightToCheckedConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return ((PlotAxis)value) == PlotAxis.MaxHeightProperty.PropertyType();
+    //    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+
+    //    }
+    //}
 }

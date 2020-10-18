@@ -101,14 +101,14 @@
         <d3:Chart Name="plotter" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
                   PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
-                  FontFamily="Arial Unicode MS" FontSize="24" Foreground="Red">
+                  FontFamily="Arial Unicode MS" FontSize="24">
             <d3:Chart.LegendContent>
                 <d3:LegendItemsPanel>
                     <d3:LegendItemsPanel.Resources>
                         <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}" Content="{Binding Path=Description}"/>
-                                <!--<RadioButton IsChecked="{Binding Path=}"/>-->
+                                <RadioButton IsChecked="{Binding Path=MaxHeight, Mode=TwoWay}"/>
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>
