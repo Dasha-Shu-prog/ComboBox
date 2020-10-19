@@ -108,7 +108,7 @@
                         <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}" Content="{Binding Path=Description}"/>
-                                <RadioButton IsChecked="{Binding Path=MaxHeight, Mode=TwoWay}"/>
+                                <!--<RadioButton IsChecked="{Binding Path=MaxHeight, Mode=TwoWay}"/>-->
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>

@@ -85,8 +85,8 @@ C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.cspro
 C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csproj.CopyComplete
 C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\MinMaxGraphControl.g.cs
 C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\MinMaxGraphControl.baml
-C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csprojAssemblyReference.cache
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\MinMaxGraphControl.g.cs
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\NumericControl.g.cs
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\MinMaxGraphControl.baml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\NumericControl.baml
+C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csprojAssemblyReference.cache

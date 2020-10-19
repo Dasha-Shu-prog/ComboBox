@@ -11,6 +11,7 @@ using InteractiveDataDisplay.WPF;
 using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Input;
+using System.Windows.Shapes;
 
 namespace Table1
 {
@@ -39,7 +40,29 @@ namespace Table1
             lg.StrokeThickness = 2;
             lg.Plot(x, y);
             lg.Description = String.Format("Сигнал");
+            List<int> xLineMin = new List<int>();
+            List<int> yLineMin = new List<int>();
+            xLineMin.Add(-16);
+            yLineMin.Add((int)plotter.PlotOriginY);
+            xLineMin.Add(-16);
+            yLineMin.Add((int)plotter.PlotHeight);
+            var line = new LineGraph();            
+            line.Stroke = new SolidColorBrush(Colors.MediumBlue);
+            line.StrokeThickness = 2;
+            line.Plot(xLineMin, yLineMin);
+            linesPlot.Children.Add(line);
+            line.MouseDown += Line_MouseDown;
             ConfigLoad();
+        }
+
+        private void Line_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //linesPlot
+        }
+
+        private void MoveSlader ()
+        {
+
         }
         private void FillLineGraph(StrobeCharacteristic strobe)
         {
@@ -93,8 +116,8 @@ namespace Table1
         // Загрузка конфигурации
         private void ConfigLoad()
         {
-            //string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
-            string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
+            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
             using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
                 string lineRow;
@@ -235,8 +258,8 @@ namespace Table1
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Запись строб в файл
-            //string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
-            string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
+            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
             using (StreamWriter dataFile = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var strobe in listStrobe)
