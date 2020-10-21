@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Globalization;
 using System.Windows.Input;
 using System.Windows.Shapes;
+using System.Web.UI.WebControls;
 
 namespace Table1
 {
@@ -24,6 +25,9 @@ namespace Table1
         private int t_start = 0;
         private int t_stop = 0;
         private int val_ampl = 0;
+        readonly LineGraph signal = new LineGraph();
+        readonly LineGraph line = new LineGraph();
+        //readonly CheckBoxList checkBoxLegendGraph = new CheckBoxList();
         List<StrobeCharacteristic> listStrobe = new List<StrobeCharacteristic>();
         public MainWindow()
         {
@@ -32,37 +36,25 @@ namespace Table1
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             // Добавление синусоиды на график
-            var y = Enumerable.Range(0, 2000).Select(i => i / 10.0).ToArray();
-            var x = y.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            var lg = new LineGraph();
-            linesPlot.Children.Add(lg);
-            lg.Stroke = new SolidColorBrush(Colors.Black);
-            lg.StrokeThickness = 2;
-            lg.Plot(x, y);
-            lg.Description = String.Format("Сигнал");
+            double[] y = Enumerable.Range(0, 2000).Select(i => i / 10.0).ToArray();
+            double[] x = y.Select(v => Math.Sin(v + 100) * 10).ToArray();
+            linesPlot.Children.Add(signal);
+            signal.Stroke = new SolidColorBrush(Colors.Black);
+            signal.StrokeThickness = 2;
+            signal.Plot(x, y);
+            signal.Description = String.Format("Сигнал");
             List<int> xLineMin = new List<int>();
             List<int> yLineMin = new List<int>();
             xLineMin.Add(-16);
             yLineMin.Add((int)plotter.PlotOriginY);
             xLineMin.Add(-16);
             yLineMin.Add((int)plotter.PlotHeight);
-            var line = new LineGraph();            
-            line.Stroke = new SolidColorBrush(Colors.MediumBlue);
-            line.StrokeThickness = 2;
-            line.Plot(xLineMin, yLineMin);
-            linesPlot.Children.Add(line);
-            line.MouseDown += Line_MouseDown;
-            ConfigLoad();
-        }
-
-        private void Line_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            //linesPlot
-        }
-
-        private void MoveSlader ()
-        {
-
+            var lineMin = new LineGraph();            
+            lineMin.Stroke = new SolidColorBrush(Colors.MediumBlue);
+            lineMin.StrokeThickness = 2;
+            lineMin.Plot(xLineMin, yLineMin);
+            linesPlot.Children.Add(lineMin);
+            ConfigLoad(); 
         }
         private void FillLineGraph(StrobeCharacteristic strobe)
         {
@@ -72,11 +64,8 @@ namespace Table1
             yCoords.Add(strobe.Time_start);
             xCoords.Add(strobe.Amplitude);
             yCoords.Add(strobe.Time_stop);
-            var line = new LineGraph
-            {
-                StrokeThickness = 3,
-                Description = $"Строб {listStrobe.Count}"
-            };
+            line.StrokeThickness = 3;
+            line.Description = "Строб " + strobe.Color;
             line.Plot(xCoords, yCoords);
             linesPlot.Children.Add(line);
             switch (strobe.Color)
@@ -244,7 +233,7 @@ namespace Table1
             }
         }
         // Подсказка с координатами
-        private void LineMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void LineMouseDown(object sender, MouseButtonEventArgs e)
         {
             var position = e.GetPosition(linesPlot);
             var heightY = plotter.ActualHeight - position.Y;
@@ -272,7 +261,6 @@ namespace Table1
                 }
             }
         }
-
         private void LegendGraph_Click(object sender, RoutedEventArgs e)
         {
             if (LegendGraph.IsChecked == true)
@@ -286,6 +274,45 @@ namespace Table1
                 LegendGraph.Content = "Скрыть легенду";
             }
         }
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            signal.Visibility = Visibility.Visible;
+            line.Visibility = Visibility.Visible;
+        }
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            signal.Visibility = Visibility.Collapsed;
+            line.Visibility = Visibility.Collapsed;
+        }
+        private void CheckBox_Indeterminate(object sender, RoutedEventArgs e)
+        {
+            signal.PlotHeight = t_stop;
+            signal.PlotOriginY = t_start;
+        }
+        //private object  CheckedCheck (object value)
+        //{
+        //    return ((Visibility)value) == Visibility.Visible;
+        //}
+        //private object UncheckedCheck (object value)
+        //{
+        //    return ((Visibility)value) == Visibility.Collapsed;
+        //}
+        //private void FillLegend ()
+        //{
+        //    plotter.LegendContent = checkBoxLegendGraph;
+        //}
+        //private void CheckBoxThreeState_Checked(object sender, RoutedEventArgs e)
+        //{
+        //    signal.Visibility = Visibility.Visible;
+        //}
+        //private void CheckBoxThreeState_Unchecked(object sender, RoutedEventArgs e)
+        //{
+        //    signal.Visibility = Visibility.Collapsed;
+        //}
+        //private void CheckBoxThreeState_Indeterminate(object sender, RoutedEventArgs e)
+        //{
+        //    signal.Width = 5;
+        //}
     }
     public class VisibilityToCheckedConverter : IValueConverter
     {
@@ -298,15 +325,4 @@ namespace Table1
             return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
-    //public class MaxHeightToCheckedConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return ((PlotAxis)value) == PlotAxis.MaxHeightProperty.PropertyType();
-    //    }
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-
-    //    }
-    //}
 }

@@ -90,7 +90,7 @@
                   EnableRowVirtualization="False" SelectionMode="Single"
                   Style="{DynamicResource dataGtidStyle}" CanUserSortColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding Path=Id}" Visibility="Hidden"/>
+                <!--<DataGridTextColumn x:Name="ID" Header="ID" Binding="{Binding Path=Id}" Visibility="Hidden"/>-->
                 <DataGridTextColumn x:Name="TIME_start" Header="Время с" Binding="{Binding Path=Time_start}"/>
                 <DataGridTextColumn x:Name="TIME_stop" Header="Время по" Binding="{Binding Path=Time_stop}"/>
                 <DataGridTextColumn x:Name="amplitude" Header="Амплитуда" Binding="{Binding Path=Amplitude}"/>
@@ -107,8 +107,10 @@
                     <d3:LegendItemsPanel.Resources>
                         <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}" Content="{Binding Path=Description}"/>
-                                <!--<RadioButton IsChecked="{Binding Path=MaxHeight, Mode=TwoWay}"/>-->
+                                <!--<CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
+                                          Content="{Binding Description}"/>-->
+                                <CheckBox Content="{Binding Description}" IsThreeState="True" IsChecked="{Binding Path=Visibility}"
+                                          Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Indeterminate="CheckBox_Indeterminate"/>
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>
