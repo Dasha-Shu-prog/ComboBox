@@ -9,9 +9,9 @@
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d" FontSize="24"
         Title="MainWindow" Height="900" Width="1600" Loaded="WindowLoaded" Closing="WindowClosing">
-    <Window.Resources>
+    <!--<Window.Resources>
         <local:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
-    </Window.Resources>
+    </Window.Resources>-->
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center">
 
@@ -109,7 +109,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <!--<CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
                                           Content="{Binding Description}"/>-->
-                                <CheckBox Content="{Binding Description}" IsThreeState="True" IsChecked="{Binding Path=Visibility}"
+                                <CheckBox IsThreeState="True" Content="{Binding Description}" IsChecked="True" x:Name="CheckBoxSignal"
                                           Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Indeterminate="CheckBox_Indeterminate"/>
                             </StackPanel>
                         </DataTemplate>

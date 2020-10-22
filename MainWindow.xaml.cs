@@ -25,10 +25,11 @@ namespace Table1
         private int t_start = 0;
         private int t_stop = 0;
         private int val_ampl = 0;
-        readonly LineGraph signal = new LineGraph();
-        readonly LineGraph line = new LineGraph();
+        StrobeCharacteristic strobe;
+        LineGraph signal;
+        LineGraph line;
         //readonly CheckBoxList checkBoxLegendGraph = new CheckBoxList();
-        List<StrobeCharacteristic> listStrobe = new List<StrobeCharacteristic>();
+        List<StrobeCharacteristic> listStrobe = new List<StrobeCharacteristic>();        
         public MainWindow()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace Table1
             // Добавление синусоиды на график
             double[] y = Enumerable.Range(0, 2000).Select(i => i / 10.0).ToArray();
             double[] x = y.Select(v => Math.Sin(v + 100) * 10).ToArray();
+            signal = new LineGraph();
             linesPlot.Children.Add(signal);
             signal.Stroke = new SolidColorBrush(Colors.Black);
             signal.StrokeThickness = 2;
@@ -64,6 +66,7 @@ namespace Table1
             yCoords.Add(strobe.Time_start);
             xCoords.Add(strobe.Amplitude);
             yCoords.Add(strobe.Time_stop);
+            line = new LineGraph();
             line.StrokeThickness = 3;
             line.Description = "Строб " + strobe.Color;
             line.Plot(xCoords, yCoords);
@@ -112,7 +115,7 @@ namespace Table1
                 string lineRow;
                 for (int index = id; ; index++)
                 {
-                    StrobeCharacteristic strobe = new StrobeCharacteristic();
+                    strobe = new StrobeCharacteristic();
                     if ((lineRow = sr.ReadLine()) == null)
                         return;
 
@@ -167,7 +170,7 @@ namespace Table1
                 MessageBox.Show(messageBoxText, caption, MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            StrobeCharacteristic strobe = new StrobeCharacteristic
+            strobe = new StrobeCharacteristic
             {
                 //Id = id++,
                 Id = listStrobe.Count + id++,
@@ -276,53 +279,115 @@ namespace Table1
         }
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            signal.Visibility = Visibility.Visible;
-            line.Visibility = Visibility.Visible;
+            //Visibility visibility = Visibility.Visible;
+            //(Visibility)sender == visibility;
+            //var visibilityChecked = (Visibility)sender;
+            //visibilityChecked = Visibility.Visible;
+            //System.Windows.Controls.CheckBox checkBox;
+
+
+            switch (sender)
+            {
+                case "Строб Красный":
+                    {
+                        line.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "Строб Синий":
+                    {
+                        line.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "Строб Зелёный":
+                    {
+                        line.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "Строб Оранжевый":
+                    {
+                        line.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "Строб Фиолетовый":
+                    {
+                        line.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "Строб Другой цвет":
+                    {
+                        line.Visibility = Visibility.Visible;
+                        break;
+                    }
+                case "Сигнал":
+                    {
+                        signal.Visibility = Visibility.Visible;
+                        break;
+                    }
+            }
         }
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            signal.Visibility = Visibility.Collapsed;
-            line.Visibility = Visibility.Collapsed;
+            switch (sender)
+            {
+                case "Строб Красный":
+                    {
+                        line.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "Строб Синий":
+                    {
+                        line.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "Строб Зелёный":
+                    {
+                        line.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "Строб Оранжевый":
+                    {
+                        line.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "Строб Фиолетовый":
+                    {
+                        line.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "Строб Другой цвет":
+                    {
+                        line.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+                case "Сигнал":
+                    {
+                        signal.Visibility = Visibility.Collapsed;
+                        break;
+                    }
+            }
         }
         private void CheckBox_Indeterminate(object sender, RoutedEventArgs e)
         {
-            signal.PlotHeight = t_stop;
-            signal.PlotOriginY = t_start;
-        }
-        //private object  CheckedCheck (object value)
-        //{
-        //    return ((Visibility)value) == Visibility.Visible;
-        //}
-        //private object UncheckedCheck (object value)
-        //{
-        //    return ((Visibility)value) == Visibility.Collapsed;
-        //}
-        //private void FillLegend ()
-        //{
-        //    plotter.LegendContent = checkBoxLegendGraph;
-        //}
-        //private void CheckBoxThreeState_Checked(object sender, RoutedEventArgs e)
-        //{
-        //    signal.Visibility = Visibility.Visible;
-        //}
-        //private void CheckBoxThreeState_Unchecked(object sender, RoutedEventArgs e)
-        //{
-        //    signal.Visibility = Visibility.Collapsed;
-        //}
-        //private void CheckBoxThreeState_Indeterminate(object sender, RoutedEventArgs e)
-        //{
-        //    signal.Width = 5;
-        //}
-    }
-    public class VisibilityToCheckedConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return ((Visibility)value) == Visibility.Visible;
-        }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
+            double[] y1 = Enumerable.Range(0, 2000).Select(i => i / 10.0).ToArray();
+            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+            LineGraph signal1 = new LineGraph();
+            linesPlot.Children.Remove(signal);
+            linesPlot.Children.Add(signal1);
+            signal1.Description = "Сигнал";
+            signal1.Stroke = new SolidColorBrush(Colors.Black);
+            signal1.StrokeThickness = 2;
+            signal1.Plot(x1, y1);
         }
     }
+    //public class VisibilityToCheckedConverter : IValueConverter
+    //{
+    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return ((Visibility)value) == Visibility.Visible;
+    //    }
+    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    //    {
+    //        return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
+    //    }
+    //}
 }
