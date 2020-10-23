@@ -109,8 +109,8 @@
                             <StackPanel Orientation="Horizontal">
                                 <!--<CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
                                           Content="{Binding Description}"/>-->
-                                <CheckBox IsThreeState="True" Content="{Binding Description}" IsChecked="True" x:Name="CheckBoxSignal"
-                                          Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Indeterminate="CheckBox_Indeterminate"/>
+                                <CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
+                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>
