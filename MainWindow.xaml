@@ -9,9 +9,9 @@
         xmlns:d3="clr-namespace:InteractiveDataDisplay.WPF;assembly=InteractiveDataDisplay.WPF"
         mc:Ignorable="d" FontSize="24"
         Title="MainWindow" Height="900" Width="1600" Loaded="WindowLoaded" Closing="WindowClosing">
-    <!--<Window.Resources>
+    <Window.Resources>
         <local:VisibilityToCheckedConverter x:Key="VisibilityToCheckedConverter"/>
-    </Window.Resources>-->
+    </Window.Resources>
     <Grid HorizontalAlignment="Center" 
           VerticalAlignment="Center">
 
@@ -107,10 +107,10 @@
                     <d3:LegendItemsPanel.Resources>
                         <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
                             <StackPanel Orientation="Horizontal">
-                                <!--<CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
-                                          Content="{Binding Description}"/>-->
-                                <CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
-                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>
+                                <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
+                                          Content="{Binding Description}" IsThreeState="True"/>
+                                <!--<CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
+                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>-->
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>

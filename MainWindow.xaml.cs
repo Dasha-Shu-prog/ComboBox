@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Web.UI.WebControls;
+using System.Web.UI;
 
 namespace Table1
 {
@@ -109,7 +110,7 @@ namespace Table1
         private void ConfigLoad()
         {
             string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
-            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";        
             using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
                 string lineRow;
@@ -251,7 +252,7 @@ namespace Table1
         {
             // Запись строб в файл
             string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
-            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";
+            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";            
             using (StreamWriter dataFile = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var strobe in listStrobe)
@@ -277,99 +278,8 @@ namespace Table1
                 LegendGraph.Content = "Скрыть легенду";
             }
         }
-        //private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        //private void CheckBoxLegendItems_Indeterminate(object sender, RoutedEventArgs e)
         //{
-        //    //Visibility visibility = Visibility.Visible;
-        //    //(Visibility)sender == visibility;
-        //    //var visibilityChecked = (Visibility)sender;
-        //    //visibilityChecked = Visibility.Visible;
-        //    //System.Windows.Controls.CheckBox checkBox;
-        //    var content = sender.GetHashCode();            
-        //}
-        private void CheckBoxLegendItems_Checked(object sender, RoutedEventArgs e)
-        {
-            switch (((ContentControl)sender).Content)
-            {
-                case "Строб Красный":
-                    {
-                        line.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case "Строб Синий":
-                    {
-                        line.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case "Строб Зелёный":
-                    {
-                        line.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case "Строб Оранжевый":
-                    {
-                        line.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case "Строб Фиолетовый":
-                    {
-                        line.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case "Строб Другой цвет":
-                    {
-                        line.Visibility = Visibility.Visible;
-                        break;
-                    }
-                case "Сигнал":
-                    {
-                        signal.Visibility = Visibility.Visible;
-                        break;
-                    }
-            }
-        }
-        private void CheckBoxLegendItems_Unchecked(object sender, RoutedEventArgs e)
-        {
-            switch (((ContentControl)sender).Content)
-            {
-                case "Строб Красный":
-                    {
-                        line.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-                case "Строб Синий":
-                    {
-                        line.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-                case "Строб Зелёный":
-                    {
-                        line.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-                case "Строб Оранжевый":
-                    {
-                        line.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-                case "Строб Фиолетовый":
-                    {
-                        line.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-                case "Строб Другой цвет":
-                    {
-                        line.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-                case "Сигнал":
-                    {
-                        signal.Visibility = Visibility.Collapsed;
-                        break;
-                    }
-            }
-        }
-        private void CheckBoxLegendItems_Indeterminate(object sender, RoutedEventArgs e)
-        {
             //switch (((ContentControl)sender).Content)
             //{
             //    case "Строб Красный":
@@ -457,17 +367,21 @@ namespace Table1
             //            break;
             //        }
             //}
+        //}
+    }
+    public class VisibilityToCheckedConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            
+            return ((Visibility)value) == Visibility.Visible;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value == null)
+              return null;
+
+            return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
-    //public class VisibilityToCheckedConverter : IValueConverter
-    //{
-    //    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return ((Visibility)value) == Visibility.Visible;
-    //    }
-    //    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    //    {
-    //        return ((bool)value) ? Visibility.Visible : Visibility.Collapsed;
-    //    }
-    //}
 }

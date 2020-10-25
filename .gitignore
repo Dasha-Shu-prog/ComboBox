@@ -1,2 +1,3 @@
-
-.vs/Table1/v16/.suo
+bin/
+obj/
+.vs/
