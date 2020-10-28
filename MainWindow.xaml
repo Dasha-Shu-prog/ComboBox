@@ -32,7 +32,7 @@
         <CheckBox x:Name="LegendGraph" Content="Скрыть легенду"
                   Grid.Column="1" Grid.Row="0" VerticalContentAlignment="Center"
                   HorizontalAlignment="Center" VerticalAlignment="Center" Click="LegendGraph_Click"/>
-        <uc:MinMaxGraphControl x:Name="SliderGraph" Grid.Column="2" Grid.Row="0"/>
+        <uc:MinMaxGraphControl x:Name="SliderGraph" Grid.Column="2" Grid.Row="0" MouseDown="SliderGraph_MouseDown"/>
 
         <uc:NumericControl x:Name="timeStart" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="1"/>
         <uc:NumericControl x:Name="timeStop" Text="0" MinValue="0" MaxValue="180" Grid.Column="0" Grid.Row="2"/>
@@ -98,19 +98,47 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <d3:Chart Name="plotter" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" 
+        <Canvas x:Name="graphCanvas" Grid.Row="1" Grid.Column="2" Grid.RowSpan="5" Height="700" Width="550">
+            <d3:Chart Name="plotter" 
+                  Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
+                  PlotHeight="190" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
+                  FontFamily="Arial Unicode MS" FontSize="24">
+                <d3:Chart.LegendContent>
+                    <d3:LegendItemsPanel Background="Transparent">
+                        <d3:LegendItemsPanel.Resources>
+                            <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
+                                          Content="{Binding Description}" IsThreeState="True"/>
+                                    <!--<CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
+                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>-->
+                                </StackPanel>
+                            </DataTemplate>
+                        </d3:LegendItemsPanel.Resources>
+                    </d3:LegendItemsPanel>
+                </d3:Chart.LegendContent>
+                <Grid x:Name="linesPlot" VerticalAlignment="Center"
+                  HorizontalAlignment="Center" 
+                  MouseLeftButtonDown="LineMouseDown"/>
+            </d3:Chart>
+            <Line x:Name="leftLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="BlueViolet"
+                  Canvas.Left="288" StrokeThickness="3"/>
+            <Line x:Name="rightLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="SeaGreen"
+                  Canvas.Right="260" StrokeThickness="3"/>
+        </Canvas>
+        <!--<d3:Chart Name="plotter" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
                   PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
                   FontFamily="Arial Unicode MS" FontSize="24">
             <d3:Chart.LegendContent>
-                <d3:LegendItemsPanel>
+                <d3:LegendItemsPanel Background="Transparent">
                     <d3:LegendItemsPanel.Resources>
                         <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
                                           Content="{Binding Description}" IsThreeState="True"/>
-                                <!--<CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
-                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>-->
+                                --><!--<CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
+                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>--><!--
                             </StackPanel>
                         </DataTemplate>
                     </d3:LegendItemsPanel.Resources>
@@ -119,6 +147,6 @@
             <Grid x:Name="linesPlot" VerticalAlignment="Center"
                   HorizontalAlignment="Center" 
                   MouseLeftButtonDown="LineMouseDown"/>
-        </d3:Chart>
+        </d3:Chart>-->
     </Grid>
 </Window>

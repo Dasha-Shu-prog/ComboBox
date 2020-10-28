@@ -7,24 +7,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="800" x:Name="root">
     <Grid VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65"/>
+            <ColumnDefinition Width="*"/>
+            
+        </Grid.ColumnDefinitions>
 
-        <Rectangle x:Name="MainLine" Fill="#FF764F9B" Height="5"/>
-
-        <Slider x:Name="LowerSlider" Grid.Row="0" Grid.Column="0"
-                Minimum="{Binding ElementName=root, Path=Minimum}"
-                Maximum="{Binding ElementName=root, Path=Maximum}"
+        <Rectangle x:Name="MainLine" Fill="#FF764F9B" Height="5" Grid.Column="1"/>
+ 
+        <Slider x:Name="LowerSlider" Grid.Column="1"                
+                Minimum="-20" Maximum="25"
                 Value="{Binding ElementName=root, Path=LowerValue}"
-                Template="{StaticResource simpleSlider}" Margin="100 0 40 0"/>
+                Template="{DynamicResource simpleSlider}"/>
         
         <!--<Border x:Name="LowerLine" BorderThickness="1" BorderBrush="Blue"
                 Grid.Row="1" Grid.Column="0" Height="200"
                 Width="1"/>-->
 
-        <Slider x:Name="UpperSlider" Grid.Row="0" Grid.Column="1"
-                Minimum="{Binding ElementName=root, Path=Minimum}"
-                Maximum="{Binding ElementName=root, Path=Maximum}"
+        <Slider x:Name="UpperSlider" Grid.Column="1"
+                Minimum="-20" Maximum="25"
                 Value="{Binding ElementName=root, Path=UpperValue}"
-                Template="{StaticResource simpleSlider}" Margin="140 0 0 0"/>
+                Template="{DynamicResource simpleSlider}"/>
         
     </Grid>
 </UserControl>

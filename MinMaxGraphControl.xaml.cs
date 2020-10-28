@@ -20,60 +20,60 @@ namespace Table1
     /// </summary>
     public partial class MinMaxGraphControl : UserControl
     {
-        public double Minimum
+        public int Minimum
         {
-            get { return (double)GetValue(MinimumProperty); }
+            get { return (int)GetValue(MinimumProperty); }
             set { SetValue(MinimumProperty, value); }
         }
 
         public static readonly DependencyProperty MinimumProperty =
-            DependencyProperty.Register("Minimum", typeof(double), typeof(MinMaxGraphControl), new UIPropertyMetadata(0d));
+            DependencyProperty.Register("Minimum", typeof(int), typeof(MinMaxGraphControl), new UIPropertyMetadata(0));
 
-        public double LowerValue
+        public int LowerValue
         {
-            get { return (double)GetValue(LowerValueProperty); }
+            get { return (int)GetValue(LowerValueProperty); }
             set { SetValue(LowerValueProperty, value); }
         }
 
         public static readonly DependencyProperty LowerValueProperty =
-            DependencyProperty.Register("LowerValue", typeof(double), typeof(MinMaxGraphControl), new UIPropertyMetadata(0d));
+            DependencyProperty.Register("LowerValue", typeof(int), typeof(MinMaxGraphControl), new UIPropertyMetadata(0));
 
-        public double UpperValue
+        public int UpperValue
         {
-            get { return (double)GetValue(UpperValueProperty); }
+            get { return (int)GetValue(UpperValueProperty); }
             set { SetValue(UpperValueProperty, value); }
         }
 
         public static readonly DependencyProperty UpperValueProperty =
-            DependencyProperty.Register("UpperValue", typeof(double), typeof(MinMaxGraphControl), new UIPropertyMetadata(0d));
+            DependencyProperty.Register("UpperValue", typeof(int), typeof(MinMaxGraphControl), new UIPropertyMetadata(0));
 
-        public double Maximum
+        public int Maximum
         {
-            get { return (double)GetValue(MaximumProperty); }
+            get { return (int)GetValue(MaximumProperty); }
             set { SetValue(MaximumProperty, value); }
         }
 
         public static readonly DependencyProperty MaximumProperty =
-            DependencyProperty.Register("Maximum", typeof(double), typeof(MinMaxGraphControl), new UIPropertyMetadata(1d));
+            DependencyProperty.Register("Maximum", typeof(int), typeof(MinMaxGraphControl), new UIPropertyMetadata(0));
         public MinMaxGraphControl()
         {
             InitializeComponent();
-            this.Loaded += MinMaxGraphControl_Loaded;
+            //this.Loaded += MinMaxGraphControl_Loaded;
         }
         void MinMaxGraphControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LowerSlider.ValueChanged += LowerSlider_ValueChanged;
-            UpperSlider.ValueChanged += UpperSlider_ValueChanged;
+            //LowerSlider.ValueChanged += LowerSlider_ValueChanged;
+            //UpperSlider.ValueChanged += UpperSlider_ValueChanged;
         }
 
-        private void LowerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void LowerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
-            UpperSlider.Value = Math.Max(UpperSlider.Value, LowerSlider.Value);
+            UpperSlider.Value = Math.Round(UpperSlider.Value, 0);
         }
 
-        private void UpperSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void UpperSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<int> e)
         {
-            LowerSlider.Value = Math.Min(UpperSlider.Value, LowerSlider.Value);
+            LowerSlider.Value = Math.Round(UpperSlider.Value, 0);
         }
     }
 }

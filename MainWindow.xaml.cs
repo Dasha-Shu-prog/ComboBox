@@ -46,17 +46,17 @@ namespace Table1
             signal.StrokeThickness = 2;
             signal.Plot(x, y);
             signal.Description = String.Format("Сигнал");
-            List<int> xLineMin = new List<int>();
-            List<int> yLineMin = new List<int>();
-            xLineMin.Add(-16);
-            yLineMin.Add((int)plotter.PlotOriginY);
-            xLineMin.Add(-16);
-            yLineMin.Add((int)plotter.PlotHeight);
-            var lineMin = new LineGraph();            
-            lineMin.Stroke = new SolidColorBrush(Colors.MediumBlue);
-            lineMin.StrokeThickness = 2;
-            lineMin.Plot(xLineMin, yLineMin);
-            linesPlot.Children.Add(lineMin);
+            //List<int> xLineMin = new List<int>();
+            //List<int> yLineMin = new List<int>();
+            //xLineMin.Add(-16);
+            //yLineMin.Add((int)plotter.PlotOriginY);
+            //xLineMin.Add(-16);
+            //yLineMin.Add((int)plotter.PlotHeight);
+            //var lineMin = new LineGraph();            
+            //lineMin.Stroke = new SolidColorBrush(Colors.MediumBlue);
+            //lineMin.StrokeThickness = 2;
+            //lineMin.Plot(xLineMin, yLineMin);
+            //linesPlot.Children.Add(lineMin);
             ConfigLoad(); 
         }
         private void FillLineGraph(StrobeCharacteristic strobe)
@@ -278,95 +278,101 @@ namespace Table1
                 LegendGraph.Content = "Скрыть легенду";
             }
         }
+
+        private void SliderGraph_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            leftLine.AllowDrop = true;
+            rightLine.AllowDrop = true;
+        }
         //private void CheckBoxLegendItems_Indeterminate(object sender, RoutedEventArgs e)
         //{
-            //switch (((ContentControl)sender).Content)
-            //{
-            //    case "Строб Красный":
-            //        {
-            //            line.Visibility = Visibility.Visible;
-            //            signal.Stroke = new SolidColorBrush(Colors.White);
-            //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
-            //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            //            LineGraph signal1 = new LineGraph();
-            //            linesPlot.Children.Add(signal1);
-            //            signal1.Description = "Сигнал";
-            //            signal1.Stroke = new SolidColorBrush(Colors.Black);
-            //            signal1.StrokeThickness = 2;
-            //            signal1.Plot(x1, y1);
-            //            break;
-            //        }
-            //    case "Строб Синий":
-            //        {
-            //            line.Visibility = Visibility.Visible;
-            //            signal.Stroke = new SolidColorBrush(Colors.White);
-            //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
-            //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            //            LineGraph signal1 = new LineGraph();
-            //            linesPlot.Children.Add(signal1);
-            //            signal1.Description = "Сигнал";
-            //            signal1.Stroke = new SolidColorBrush(Colors.Black);
-            //            signal1.StrokeThickness = 2;
-            //            signal1.Plot(x1, y1);
-            //            break;
-            //        }
-            //    case "Строб Зелёный":
-            //        {
-            //            line.Visibility = Visibility.Visible;
-            //            signal.Stroke = new SolidColorBrush(Colors.White);
-            //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
-            //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            //            LineGraph signal1 = new LineGraph();
-            //            linesPlot.Children.Add(signal1);
-            //            signal1.Description = "Сигнал";
-            //            signal1.Stroke = new SolidColorBrush(Colors.Black);
-            //            signal1.StrokeThickness = 2;
-            //            signal1.Plot(x1, y1);
-            //            break;
-            //        }
-            //    case "Строб Оранжевый":
-            //        {
-            //            line.Visibility = Visibility.Visible;
-            //            signal.Stroke = new SolidColorBrush(Colors.White);
-            //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
-            //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            //            LineGraph signal1 = new LineGraph();
-            //            linesPlot.Children.Add(signal1);
-            //            signal1.Description = "Сигнал";
-            //            signal1.Stroke = new SolidColorBrush(Colors.Black);
-            //            signal1.StrokeThickness = 2;
-            //            signal1.Plot(x1, y1);
-            //            break;
-            //        }
-            //    case "Строб Фиолетовый":
-            //        {
-            //            line.Visibility = Visibility.Visible;
-            //            signal.Stroke = new SolidColorBrush(Colors.White);
-            //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
-            //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            //            LineGraph signal1 = new LineGraph();
-            //            linesPlot.Children.Add(signal1);
-            //            signal1.Description = "Сигнал";
-            //            signal1.Stroke = new SolidColorBrush(Colors.Black);
-            //            signal1.StrokeThickness = 2;
-            //            signal1.Plot(x1, y1);
-            //            break;
-            //        }
-            //    case "Строб Другой цвет":
-            //        {
-            //            line.Visibility = Visibility.Visible;
-            //            signal.Stroke = new SolidColorBrush(Colors.White);
-            //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
-            //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
-            //            LineGraph signal1 = new LineGraph();
-            //            linesPlot.Children.Add(signal1);
-            //            signal1.Description = "Сигнал";
-            //            signal1.Stroke = new SolidColorBrush(Colors.Black);
-            //            signal1.StrokeThickness = 2;
-            //            signal1.Plot(x1, y1);
-            //            break;
-            //        }
-            //}
+        //switch (((ContentControl)sender).Content)
+        //{
+        //    case "Строб Красный":
+        //        {
+        //            line.Visibility = Visibility.Visible;
+        //            signal.Stroke = new SolidColorBrush(Colors.White);
+        //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
+        //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+        //            LineGraph signal1 = new LineGraph();
+        //            linesPlot.Children.Add(signal1);
+        //            signal1.Description = "Сигнал";
+        //            signal1.Stroke = new SolidColorBrush(Colors.Black);
+        //            signal1.StrokeThickness = 2;
+        //            signal1.Plot(x1, y1);
+        //            break;
+        //        }
+        //    case "Строб Синий":
+        //        {
+        //            line.Visibility = Visibility.Visible;
+        //            signal.Stroke = new SolidColorBrush(Colors.White);
+        //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
+        //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+        //            LineGraph signal1 = new LineGraph();
+        //            linesPlot.Children.Add(signal1);
+        //            signal1.Description = "Сигнал";
+        //            signal1.Stroke = new SolidColorBrush(Colors.Black);
+        //            signal1.StrokeThickness = 2;
+        //            signal1.Plot(x1, y1);
+        //            break;
+        //        }
+        //    case "Строб Зелёный":
+        //        {
+        //            line.Visibility = Visibility.Visible;
+        //            signal.Stroke = new SolidColorBrush(Colors.White);
+        //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
+        //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+        //            LineGraph signal1 = new LineGraph();
+        //            linesPlot.Children.Add(signal1);
+        //            signal1.Description = "Сигнал";
+        //            signal1.Stroke = new SolidColorBrush(Colors.Black);
+        //            signal1.StrokeThickness = 2;
+        //            signal1.Plot(x1, y1);
+        //            break;
+        //        }
+        //    case "Строб Оранжевый":
+        //        {
+        //            line.Visibility = Visibility.Visible;
+        //            signal.Stroke = new SolidColorBrush(Colors.White);
+        //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
+        //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+        //            LineGraph signal1 = new LineGraph();
+        //            linesPlot.Children.Add(signal1);
+        //            signal1.Description = "Сигнал";
+        //            signal1.Stroke = new SolidColorBrush(Colors.Black);
+        //            signal1.StrokeThickness = 2;
+        //            signal1.Plot(x1, y1);
+        //            break;
+        //        }
+        //    case "Строб Фиолетовый":
+        //        {
+        //            line.Visibility = Visibility.Visible;
+        //            signal.Stroke = new SolidColorBrush(Colors.White);
+        //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
+        //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+        //            LineGraph signal1 = new LineGraph();
+        //            linesPlot.Children.Add(signal1);
+        //            signal1.Description = "Сигнал";
+        //            signal1.Stroke = new SolidColorBrush(Colors.Black);
+        //            signal1.StrokeThickness = 2;
+        //            signal1.Plot(x1, y1);
+        //            break;
+        //        }
+        //    case "Строб Другой цвет":
+        //        {
+        //            line.Visibility = Visibility.Visible;
+        //            signal.Stroke = new SolidColorBrush(Colors.White);
+        //            double[] y1 = Enumerable.Range(strobe.Time_start, 2000).Select(i => i / 10.0).ToArray();
+        //            double[] x1 = y1.Select(v => Math.Sin(v + 100) * 10).ToArray();
+        //            LineGraph signal1 = new LineGraph();
+        //            linesPlot.Children.Add(signal1);
+        //            signal1.Description = "Сигнал";
+        //            signal1.Stroke = new SolidColorBrush(Colors.Black);
+        //            signal1.StrokeThickness = 2;
+        //            signal1.Plot(x1, y1);
+        //            break;
+        //        }
+        //}
         //}
     }
     public class VisibilityToCheckedConverter : IValueConverter
