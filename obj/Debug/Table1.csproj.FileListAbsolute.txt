@@ -90,3 +90,4 @@ C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\NumericControl.g.c
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\MinMaxGraphControl.baml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\NumericControl.baml
 C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\obj\Debug\Table1.csprojAssemblyReference.cache
+C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\obj\Debug\Table1.csprojAssemblyReference.cache

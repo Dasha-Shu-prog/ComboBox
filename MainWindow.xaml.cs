@@ -14,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Shapes;
 using System.Web.UI.WebControls;
 using System.Web.UI;
+using System.Web.UI.DataVisualization.Charting;
+using System.Threading.Tasks;
 
 namespace Table1
 {
@@ -46,6 +48,17 @@ namespace Table1
             signal.StrokeThickness = 2;
             signal.Plot(x, y);
             signal.Description = String.Format("Сигнал");
+            MinMaxLineMove();
+            //Task.Run(() => TaskUpdateMinMaxLine());
+            //MinMaxGraphControl graphControl = new MinMaxGraphControl();
+            //Binding bindingLeftLine = new Binding();
+            //bindingLeftLine.Source = graphControl.LowerSlider;
+            //bindingLeftLine.Path = new PropertyPath("ElementPosition");
+            //bindingLeftLine.Mode = BindingMode.TwoWay;
+            //leftLine.SetBinding(Canvas.LeftProperty, bindingLeftLine);
+            //leftLine.MouseLeftButtonDown += LeftLine_MouseDown;
+            //leftLine.MouseLeftButtonUp += LeftLine_MouseUp;
+            //leftLine.MouseMove += LeftLine_MouseMove;
             //List<int> xLineMin = new List<int>();
             //List<int> yLineMin = new List<int>();
             //xLineMin.Add(-16);
@@ -59,6 +72,62 @@ namespace Table1
             //linesPlot.Children.Add(lineMin);
             ConfigLoad(); 
         }
+        //private void LeftLine_MouseDown(object sender, MouseButtonEventArgs mouseArgs)
+        //{
+        //    var item = sender as FrameworkElement;
+            
+        //}
+        //private void LeftLine_MouseUp(object sender, MouseButtonEventArgs mouseArgs)
+        //{
+
+        //}
+        //private void LeftLine_MouseMove(object sender, MouseButtonEventArgs mouseArgs)
+        //{
+
+        //}
+        //private void Bind ()
+        //{
+        //    MinMaxGraphControl graphControl = new MinMaxGraphControl();
+        //    Binding bindingLeftLine = new Binding();
+        //    bindingLeftLine.Source = graphControl.LowerSlider;
+        //    bindingLeftLine.Path = new PropertyPath("Canvas.SetLeft");
+        //    bindingLeftLine.Mode = BindingMode.TwoWay;
+        //    leftLine.SetBinding(Canvas.LeftProperty, bindingLeftLine);
+        //}
+
+        //private void TaskUpdateMinMaxLine()
+        //{
+        //    MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
+        //    if (minMaxGraphControl.LowerSlider. == true)
+        //    leftLine.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        leftLine.Visibility = Visibility;
+        //        leftLine.Margin = new Thickness(258, 0, 0, 0);
+        //    }));
+        //    rightLine.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        rightLine.Visibility = Visibility;
+        //        rightLine.Margin = new Thickness(0, 0, 208, 0);
+        //    }));
+        //}
+        private void MinMaxLineMove ()
+        {
+            //bool moveLine = true;
+            MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
+            //minMaxGraphControl.LowerSlider.ValueChanged += LeftLineMove;
+            //if(moveLine)
+            //{
+                
+            //}
+            minMaxGraphControl.LowerValue -= 1;
+            leftLine.Margin = new Thickness(258, 0, 0, 0);
+            minMaxGraphControl.UpperValue += 1;
+            rightLine.Margin = new Thickness(0, 0, 208, 0);
+        }
+        //private void LeftLineMove(object sender, RoutedEventArgs eventArgs)
+        //{
+            
+        //}
         private void FillLineGraph(StrobeCharacteristic strobe)
         {
             List<int> xCoords = new List<int>();
@@ -69,7 +138,7 @@ namespace Table1
             yCoords.Add(strobe.Time_stop);
             line = new LineGraph();
             line.StrokeThickness = 3;
-            line.Description = "Строб " + strobe.Color;
+            line.Description = "Строб " + listStrobe.Count;
             line.Plot(xCoords, yCoords);
             linesPlot.Children.Add(line);
             switch (strobe.Color)
@@ -279,11 +348,13 @@ namespace Table1
             }
         }
 
-        private void SliderGraph_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            leftLine.AllowDrop = true;
-            rightLine.AllowDrop = true;
-        }
+        //private void SliderGraph_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    leftLine.AllowDrop = true;
+        //    leftLine.FlowDirection = FlowDirection.RightToLeft;
+        //    rightLine.AllowDrop = true;
+        //    rightLine.FlowDirection = FlowDirection.LeftToRight;
+        //}
         //private void CheckBoxLegendItems_Indeterminate(object sender, RoutedEventArgs e)
         //{
         //switch (((ContentControl)sender).Content)
