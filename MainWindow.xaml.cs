@@ -117,12 +117,51 @@ namespace Table1
             //minMaxGraphControl.LowerSlider.ValueChanged += LeftLineMove;
             //if(moveLine)
             //{
-                
+
             //}
-            minMaxGraphControl.LowerValue -= 1;
-            leftLine.Margin = new Thickness(258, 0, 0, 0);
-            minMaxGraphControl.UpperValue += 1;
-            rightLine.Margin = new Thickness(0, 0, 208, 0);
+            //for (int i = 0; i <= 206; ++i)
+            //{
+            //    minMaxGraphControl.LowerValue -= 1;
+            //    leftLine.Margin = new Thickness(0, 0, i, 0);
+            //}
+            //for (int i = 0; i <= 258; ++i)
+            //{
+            //    minMaxGraphControl.UpperValue += 1;
+            //    rightLine.Margin = new Thickness(i, 0, 0, 0);
+            //}
+
+            //int iLower = 0;
+            //if (minMaxGraphControl.LowerValue == iLower)
+            //{
+            //    iLower++;
+            //    int marginLeft = iLower + 8;
+            //    while (marginLeft <= 206 && iLower >= minMaxGraphControl.Minimum)
+            //    {
+            //        leftLine.Margin = new Thickness(0, 0, marginLeft, 0);
+            //    }                                
+            //}
+            //int iUpper = 0;
+            //if (minMaxGraphControl.UpperValue == iUpper)
+            //{
+            //    iUpper++;
+            //    int marginRight = iUpper + 10;
+            //    while (marginRight <= 258 && iUpper <= minMaxGraphControl.Maximum)
+            //    {
+            //        rightLine.Margin = new Thickness(marginRight, 0, 0, 0);
+            //    }
+            //}
+            //if (minMaxGraphControl.LowerValue == 0)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 0, 0);
+            //}
+            //else if (minMaxGraphControl.LowerValue == -1)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 8, 0);
+            //}
+            //else if (minMaxGraphControl.LowerValue == -2)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 16, 0);
+            //}
         }
         //private void LeftLineMove(object sender, RoutedEventArgs eventArgs)
         //{
@@ -178,8 +217,7 @@ namespace Table1
         // Загрузка конфигурации
         private void ConfigLoad()
         {
-            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
-            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";        
+            string path = @"..\..\datafile.txt";        
             using (StreamReader sr = new StreamReader(path, Encoding.Default))
             {
                 string lineRow;
@@ -320,8 +358,7 @@ namespace Table1
         private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             // Запись строб в файл
-            string path = @"C:\Users\Админ\Desktop\Projects\StrobeProject-Table-\dataFile.txt";
-            //string path = @"C:\Users\butterfly\Desktop\Projects\Table1\ComboBox\datafile.txt";            
+            string path = @"..\..\datafile.txt";
             using (StreamWriter dataFile = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var strobe in listStrobe)
@@ -338,13 +375,13 @@ namespace Table1
         {
             if (LegendGraph.IsChecked == true)
             {
-                plotter.LegendVisibility = Visibility.Hidden;
+                plotter.LegendVisibility = Visibility;
                 LegendGraph.Content = "Показать легенду";
             }
             else
             {
-                plotter.LegendVisibility = Visibility.Visible;
-                LegendGraph.Content = "Скрыть легенду";
+                plotter.LegendVisibility = Visibility.Hidden;
+                LegendGraph.Content = "Показать легенду";
             }
         }
 

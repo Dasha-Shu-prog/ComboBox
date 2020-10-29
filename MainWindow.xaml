@@ -31,7 +31,7 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
             <uc:MinMaxGraphControl x:Name="SliderGraph" Width="630" />
-            <CheckBox x:Name="LegendGraph" Content="Скрыть легенду" VerticalContentAlignment="Center" 
+            <CheckBox x:Name="LegendGraph" Content="Показать легенду" VerticalContentAlignment="Center" IsChecked="True"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Click="LegendGraph_Click"/>
         </StackPanel>
         
@@ -122,11 +122,12 @@
                   HorizontalAlignment="Center"
                   MouseLeftButtonDown="LineMouseDown"/>
             </d3:Chart>
-            <Line x:Name="leftLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="BlueViolet"
-                  Canvas.Left="288" StrokeThickness="3" AllowDrop="True" FlowDirection="RightToLeft"/>
-            <Line x:Name="rightLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="SeaGreen"
-                  Canvas.Right="260" StrokeThickness="3" AllowDrop="True" FlowDirection="LeftToRight"/>
+            <Line x:Name="rightLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="BlueViolet"
+                  Canvas.Left="288" StrokeThickness="3" AllowDrop="True"/>
+            <Line x:Name="leftLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="SeaGreen"
+                  Canvas.Right="260" StrokeThickness="3" AllowDrop="True"/>
         </Canvas>
+
         <!--<d3:Chart Name="plotter" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" 
                   Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
                   PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
