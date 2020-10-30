@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-            <uc:MinMaxGraphControl x:Name="SliderGraph" Width="630" />
+            <uc:MinMaxGraphControl x:Name="SliderGraph" Width="630" MouseDown="SliderGraph_MouseDown"/>
             <CheckBox x:Name="LegendGraph" Content="Показать легенду" VerticalContentAlignment="Center" IsChecked="True"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Click="LegendGraph_Click"/>
         </StackPanel>

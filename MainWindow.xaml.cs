@@ -16,6 +16,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI;
 using System.Web.UI.DataVisualization.Charting;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Table1
 {
@@ -32,7 +33,8 @@ namespace Table1
         LineGraph signal;
         LineGraph line;
         //readonly CheckBoxList checkBoxLegendGraph = new CheckBoxList();
-        List<StrobeCharacteristic> listStrobe = new List<StrobeCharacteristic>();        
+        List<StrobeCharacteristic> listStrobe = new List<StrobeCharacteristic>();
+        MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
         public MainWindow()
         {
             InitializeComponent();
@@ -48,8 +50,8 @@ namespace Table1
             signal.StrokeThickness = 2;
             signal.Plot(x, y);
             signal.Description = String.Format("Сигнал");
-            MinMaxLineMove();
-            //Task.Run(() => TaskUpdateMinMaxLine());
+            //MinMaxLineMove();
+            Task.Run(() => TaskUpdateMinMaxLine());
             //MinMaxGraphControl graphControl = new MinMaxGraphControl();
             //Binding bindingLeftLine = new Binding();
             //bindingLeftLine.Source = graphControl.LowerSlider;
@@ -75,7 +77,7 @@ namespace Table1
         //private void LeftLine_MouseDown(object sender, MouseButtonEventArgs mouseArgs)
         //{
         //    var item = sender as FrameworkElement;
-            
+
         //}
         //private void LeftLine_MouseUp(object sender, MouseButtonEventArgs mouseArgs)
         //{
@@ -94,78 +96,98 @@ namespace Table1
         //    bindingLeftLine.Mode = BindingMode.TwoWay;
         //    leftLine.SetBinding(Canvas.LeftProperty, bindingLeftLine);
         //}
-
-        //private void TaskUpdateMinMaxLine()
+        private void TaskUpdateMinMaxLine()
+        {
+            leftLine.Dispatcher.Invoke(new Action(() =>
+            {
+                if (minMaxGraphControl.LowerValue == -25)
+                {
+                    leftLine.Margin = new Thickness(0, 0, 207, 0);
+                }
+                Thread.Sleep(200);
+            }));
+            rightLine.Dispatcher.Invoke(new Action(() =>
+            {
+                rightLine.Visibility = Visibility;
+                if (minMaxGraphControl.UpperValue == 25)
+                {
+                    rightLine.Margin = new Thickness(258, 0, 0, 0);
+                }
+                Thread.Sleep(200);
+            }));
+        }
+        //private void MinMaxLineMove ()
         //{
         //    MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
-        //    if (minMaxGraphControl.LowerSlider. == true)
         //    leftLine.Dispatcher.Invoke(new Action(() =>
         //    {
         //        leftLine.Visibility = Visibility;
-        //        leftLine.Margin = new Thickness(258, 0, 0, 0);
+        //        if (minMaxGraphControl.LowerValue == 0 || minMaxGraphControl.UpperValue == 0)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 0, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == -1 || minMaxGraphControl.UpperValue == -1)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 8, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == -2 || minMaxGraphControl.UpperValue == -2)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 16, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == -3 || minMaxGraphControl.UpperValue == -3)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 24, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == -4 || minMaxGraphControl.UpperValue == -4)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 32, 0);
+        //        }
         //    }));
         //    rightLine.Dispatcher.Invoke(new Action(() =>
         //    {
         //        rightLine.Visibility = Visibility;
-        //        rightLine.Margin = new Thickness(0, 0, 208, 0);
+        //        if (minMaxGraphControl.LowerValue == 0 || minMaxGraphControl.UpperValue == 0)
+        //        {
+        //            rightLine.Margin = new Thickness(0, 0, 0, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == 1 || minMaxGraphControl.UpperValue == 1)
+        //        {
+        //            rightLine.Margin = new Thickness(10, 0, 0, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == 2 || minMaxGraphControl.UpperValue == 2)
+        //        {
+        //            rightLine.Margin = new Thickness(20, 0, 0, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == 3 || minMaxGraphControl.UpperValue == 3)
+        //        {
+        //            rightLine.Margin = new Thickness(30, 0, 0, 0);
+        //        }
+        //        if (minMaxGraphControl.LowerValue == 4 || minMaxGraphControl.UpperValue == 4)
+        //        {
+        //            rightLine.Margin = new Thickness(40, 0, 0, 0);
+        //        }
         //    }));
+        //    Task.Run(() => TaskUpdateMinMaxLine());
         //}
-        private void MinMaxLineMove ()
-        {
-            //bool moveLine = true;
-            MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
-            //minMaxGraphControl.LowerSlider.ValueChanged += LeftLineMove;
-            //if(moveLine)
-            //{
-
-            //}
-            //for (int i = 0; i <= 206; ++i)
-            //{
-            //    minMaxGraphControl.LowerValue -= 1;
-            //    leftLine.Margin = new Thickness(0, 0, i, 0);
-            //}
-            //for (int i = 0; i <= 258; ++i)
-            //{
-            //    minMaxGraphControl.UpperValue += 1;
-            //    rightLine.Margin = new Thickness(i, 0, 0, 0);
-            //}
-
-            //int iLower = 0;
-            //if (minMaxGraphControl.LowerValue == iLower)
-            //{
-            //    iLower++;
-            //    int marginLeft = iLower + 8;
-            //    while (marginLeft <= 206 && iLower >= minMaxGraphControl.Minimum)
-            //    {
-            //        leftLine.Margin = new Thickness(0, 0, marginLeft, 0);
-            //    }                                
-            //}
-            //int iUpper = 0;
-            //if (minMaxGraphControl.UpperValue == iUpper)
-            //{
-            //    iUpper++;
-            //    int marginRight = iUpper + 10;
-            //    while (marginRight <= 258 && iUpper <= minMaxGraphControl.Maximum)
-            //    {
-            //        rightLine.Margin = new Thickness(marginRight, 0, 0, 0);
-            //    }
-            //}
-            //if (minMaxGraphControl.LowerValue == 0)
-            //{
-            //    leftLine.Margin = new Thickness(0, 0, 0, 0);
-            //}
-            //else if (minMaxGraphControl.LowerValue == -1)
-            //{
-            //    leftLine.Margin = new Thickness(0, 0, 8, 0);
-            //}
-            //else if (minMaxGraphControl.LowerValue == -2)
-            //{
-            //    leftLine.Margin = new Thickness(0, 0, 16, 0);
-            //}
-        }
-        //private void LeftLineMove(object sender, RoutedEventArgs eventArgs)
+        //private void TaskUpdateMinMaxLine()
         //{
-            
+        //    leftLine.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        if (minMaxGraphControl.LowerValue == -25)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 207, 0);
+        //        }                
+        //        Thread.Sleep(200);
+        //    }));
+        //    rightLine.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        rightLine.Visibility = Visibility;
+        //        if (minMaxGraphControl.UpperValue == 25)
+        //        {
+        //            rightLine.Margin = new Thickness(258, 0, 0, 0);
+        //        }                
+        //        Thread.Sleep(200);
+        //    }));
         //}
         private void FillLineGraph(StrobeCharacteristic strobe)
         {
@@ -384,14 +406,54 @@ namespace Table1
                 LegendGraph.Content = "Показать легенду";
             }
         }
+        private void SliderGraph_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
+            //leftLine.Visibility = Visibility;
+            //if (/*minMaxGraphControl.LowerValue == 0 || */ minMaxGraphControl.LowerSlider.Value == 0)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 0, 0);
+            //}
+            //if (minMaxGraphControl.LowerSlider.Value == -1)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 8, 0);
+            //}
+            //if (minMaxGraphControl.LowerSlider.Value == -2)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 16, 0);
+            //}
+            //if (minMaxGraphControl.LowerSlider.Value == -3)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 24, 0);
+            //}
+            //if (minMaxGraphControl.LowerValue == -4)
+            //{
+            //    leftLine.Margin = new Thickness(0, 0, 32, 0);
+            //}
 
-        //private void SliderGraph_MouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    leftLine.AllowDrop = true;
-        //    leftLine.FlowDirection = FlowDirection.RightToLeft;
-        //    rightLine.AllowDrop = true;
-        //    rightLine.FlowDirection = FlowDirection.LeftToRight;
-        //}
+            //rightLine.Visibility = Visibility;
+            //if (minMaxGraphControl.LowerValue == 0 || minMaxGraphControl.UpperValue == 0)
+            //{
+            //    rightLine.Margin = new Thickness(0, 0, 0, 0);
+            //}
+            //if (minMaxGraphControl.LowerValue == 1 || minMaxGraphControl.UpperValue == 1)
+            //{
+            //    rightLine.Margin = new Thickness(10, 0, 0, 0);
+            //}
+            //if (minMaxGraphControl.LowerValue == 2 || minMaxGraphControl.UpperValue == 2)
+            //{
+            //    rightLine.Margin = new Thickness(20, 0, 0, 0);
+            //}
+            //if (minMaxGraphControl.LowerValue == 3 || minMaxGraphControl.UpperValue == 3)
+            //{
+            //    rightLine.Margin = new Thickness(30, 0, 0, 0);
+            //}
+            //if (minMaxGraphControl.LowerValue == 4 || minMaxGraphControl.UpperValue == 4)
+            //{
+            //    rightLine.Margin = new Thickness(40, 0, 0, 0);
+            //}
+        }
+
         //private void CheckBoxLegendItems_Indeterminate(object sender, RoutedEventArgs e)
         //{
         //switch (((ContentControl)sender).Content)

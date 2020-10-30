@@ -15,16 +15,12 @@
 
         <Rectangle x:Name="MainLine" Fill="#FF764F9B" Height="5" Grid.Column="1"/>
  
-        <Slider x:Name="LowerSlider" Grid.Column="1"                
+        <Slider x:Name="LowerSlider" Grid.Column="1" ValueChanged="LowerSlider_ValueChanged"
                 Minimum="-20" Maximum="25"
                 Value="{Binding ElementName=root, Path=LowerValue}"
                 Template="{DynamicResource simpleSlider}"/>
-        
-        <!--<Border x:Name="LowerLine" BorderThickness="1" BorderBrush="Blue"
-                Grid.Row="1" Grid.Column="0" Height="200"
-                Width="1"/>-->
 
-        <Slider x:Name="UpperSlider" Grid.Column="1"
+        <Slider x:Name="UpperSlider" Grid.Column="1" ValueChanged="UpperSlider_ValueChanged"
                 Minimum="-20" Maximum="25"
                 Value="{Binding ElementName=root, Path=UpperValue}"
                 Template="{DynamicResource simpleSlider}"/>
