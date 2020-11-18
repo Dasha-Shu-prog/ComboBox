@@ -84,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClassDrawingLine.cs" />
     <Compile Include="MinMaxGraphControl.xaml.cs">
       <DependentUpon>MinMaxGraphControl.xaml</DependentUpon>
     </Compile>

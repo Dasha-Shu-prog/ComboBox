@@ -61,13 +61,14 @@ namespace Table1
         {
             InitializeComponent();
         }
+
         private void LowerSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            LowerSlider.Value = Math.Round(LowerSlider.Value, 0);
+            LowerSlider.Value = Math.Round(LowerSlider.Value, 1);
         }
         private void UpperSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            UpperSlider.Value = Math.Round(UpperSlider.Value, 0);
+            UpperSlider.Value = Math.Round(UpperSlider.Value, 1);
         }
     }
 }

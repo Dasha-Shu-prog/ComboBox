@@ -30,7 +30,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">
-            <uc:MinMaxGraphControl x:Name="SliderGraph" Width="630" MouseDown="SliderGraph_MouseDown"/>
+            <uc:MinMaxGraphControl x:Name="SliderGraph" Width="630" MouseDown="SliderGraph_MouseDown" />
             <CheckBox x:Name="LegendGraph" Content="Показать легенду" VerticalContentAlignment="Center" IsChecked="True"
                       HorizontalAlignment="Center" VerticalAlignment="Center" Click="LegendGraph_Click"/>
         </StackPanel>
@@ -105,7 +105,7 @@
                   PlotHeight="190" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
                   FontFamily="Arial Unicode MS" FontSize="24">
                 <d3:Chart.LegendContent>
-                    <d3:LegendItemsPanel Background="Transparent">
+                    <d3:LegendItemsPanel >
                         <d3:LegendItemsPanel.Resources>
                             <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
                                 <StackPanel Orientation="Horizontal">
@@ -121,34 +121,21 @@
                 <Grid x:Name="linesPlot" VerticalAlignment="Center"
                   HorizontalAlignment="Center"
                   MouseLeftButtonDown="LineMouseDown"/>
-            </d3:Chart>
-            <Line x:Name="rightLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="BlueViolet"
+            </d3:Chart> 
+            <Path Stroke="Blue" x:Name="rightLine" MouseDown="rightLine_MouseDown" StrokeThickness="3">
+                <Path.Data>
+                    <PathGeometry  Figures="M 290, 0 L 290, 620 Z"/>
+                </Path.Data>
+            </Path>
+            <Path Stroke="BlueViolet" x:Name="leftLine" MouseDown="leftLine_MouseDown" StrokeThickness="3">
+                <Path.Data>
+                    <PathGeometry  Figures="M 290, 0 L 290, 620 Z"/>
+                </Path.Data>
+            </Path>
+            <!--<Line x:Name="rightLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="BlueViolet"
                   Canvas.Left="288" StrokeThickness="3" AllowDrop="True"/>
             <Line x:Name="leftLine" X1="0" Y1="0" X2="0" Y2="635" Stroke="SeaGreen"
-                  Canvas.Right="260" StrokeThickness="3" AllowDrop="True"/>
+                  Canvas.Right="260" StrokeThickness="3" AllowDrop="True"/>-->
         </Canvas>
-
-        <!--<d3:Chart Name="plotter" Grid.Row="1" Grid.RowSpan="5" Grid.Column="2" 
-                  Height="700" Width="550" BottomTitle="Амплитуда, мВ" LeftTitle="Время, мкс" 
-                  PlotHeight="200" PlotOriginX="-20" PlotOriginY="0" PlotWidth="45"
-                  FontFamily="Arial Unicode MS" FontSize="24">
-            <d3:Chart.LegendContent>
-                <d3:LegendItemsPanel Background="Transparent">
-                    <d3:LegendItemsPanel.Resources>
-                        <DataTemplate x:Key="InteractiveDataDisplay.WPF.LineGraph">
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding Path=Visibility, Converter={StaticResource VisibilityToCheckedConverter}, Mode=TwoWay}"
-                                          Content="{Binding Description}" IsThreeState="True"/>
-                                --><!--<CheckBox IsThreeState="True" Content="{Binding Description, Mode=TwoWay}" IsChecked="True" x:Name="CheckBoxLegendItems"
-                                          Checked="CheckBoxLegendItems_Checked" Unchecked="CheckBoxLegendItems_Unchecked" Indeterminate="CheckBoxLegendItems_Indeterminate"/>--><!--
-                            </StackPanel>
-                        </DataTemplate>
-                    </d3:LegendItemsPanel.Resources>
-                </d3:LegendItemsPanel>
-            </d3:Chart.LegendContent>
-            <Grid x:Name="linesPlot" VerticalAlignment="Center"
-                  HorizontalAlignment="Center" 
-                  MouseLeftButtonDown="LineMouseDown"/>
-        </d3:Chart>-->
     </Grid>
 </Window>

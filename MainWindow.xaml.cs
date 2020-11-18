@@ -34,7 +34,7 @@ namespace Table1
         LineGraph line;
         //readonly CheckBoxList checkBoxLegendGraph = new CheckBoxList();
         List<StrobeCharacteristic> listStrobe = new List<StrobeCharacteristic>();
-        MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
+        //MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
         public MainWindow()
         {
             InitializeComponent();
@@ -51,7 +51,7 @@ namespace Table1
             signal.Plot(x, y);
             signal.Description = String.Format("Сигнал");
             //MinMaxLineMove();
-            Task.Run(() => TaskUpdateMinMaxLine());
+            //Task.Run(() => TaskUpdateMinMaxLine());
             //MinMaxGraphControl graphControl = new MinMaxGraphControl();
             //Binding bindingLeftLine = new Binding();
             //bindingLeftLine.Source = graphControl.LowerSlider;
@@ -96,26 +96,26 @@ namespace Table1
         //    bindingLeftLine.Mode = BindingMode.TwoWay;
         //    leftLine.SetBinding(Canvas.LeftProperty, bindingLeftLine);
         //}
-        private void TaskUpdateMinMaxLine()
-        {
-            leftLine.Dispatcher.Invoke(new Action(() =>
-            {
-                if (minMaxGraphControl.LowerValue == -25)
-                {
-                    leftLine.Margin = new Thickness(0, 0, 207, 0);
-                }
-                Thread.Sleep(200);
-            }));
-            rightLine.Dispatcher.Invoke(new Action(() =>
-            {
-                rightLine.Visibility = Visibility;
-                if (minMaxGraphControl.UpperValue == 25)
-                {
-                    rightLine.Margin = new Thickness(258, 0, 0, 0);
-                }
-                Thread.Sleep(200);
-            }));
-        }
+        //private void TaskUpdateMinMaxLine()
+        //{
+        //    leftLine.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        if (minMaxGraphControl.LowerValue == -25)
+        //        {
+        //            leftLine.Margin = new Thickness(0, 0, 207, 0);
+        //        }
+        //        Thread.Sleep(200);
+        //    }));
+        //    rightLine.Dispatcher.Invoke(new Action(() =>
+        //    {
+        //        rightLine.Visibility = Visibility;
+        //        if (minMaxGraphControl.UpperValue == 25)
+        //        {
+        //            rightLine.Margin = new Thickness(258, 0, 0, 0);
+        //        }
+        //        Thread.Sleep(200);
+        //    }));
+        //}
         //private void MinMaxLineMove ()
         //{
         //    MinMaxGraphControl minMaxGraphControl = new MinMaxGraphControl();
@@ -452,6 +452,15 @@ namespace Table1
             //{
             //    rightLine.Margin = new Thickness(40, 0, 0, 0);
             //}
+        }
+
+        private void rightLine_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            rightLine.Margin = new Thickness(10, 0, 0, 0);
+        }
+        private void leftLine_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            leftLine.Margin = new Thickness(0, 0, 10, 0);
         }
 
         //private void CheckBoxLegendItems_Indeterminate(object sender, RoutedEventArgs e)
